@@ -1,0 +1,2571 @@
+{
+  "schemaVersion": 3,
+  "appVersion": "1.0.2",
+  "exportedAt": "2026-08-31T12:05:38.272Z",
+  "profiles": [
+    {
+      "id": "STELLANTIS",
+      "name": "Stellantis",
+      "role": "vda",
+      "active": true,
+      "source": {
+        "type": "ocr"
+      },
+      "detection": {
+        "evidenceAliases": [],
+        "minEvidenceMatches": 0,
+        "excludeAliases": [],
+        "minScore": 0.55
+      },
+      "validation": {
+        "minAnchorScore": 0.55,
+        "requiredValidFields": [],
+        "errorMessage": ""
+      },
+      "anchor": {
+        "aliases": [
+          "Stellantis"
+        ],
+        "poly": [
+          [
+            0.11583333333333333,
+            0.11555555555555555
+          ],
+          [
+            0.4425,
+            0.11444444444444445
+          ],
+          [
+            0.4425,
+            0.15
+          ],
+          [
+            0.11583333333333333,
+            0.1511111111111111
+          ]
+        ],
+        "localizeAlias": false,
+        "scaleFrom": "width",
+        "alignFrom": "center",
+        "fallbacks": []
+      },
+      "fields": [
+        {
+          "key": "batch",
+          "label": "Batch",
+          "required": true,
+          "compare": true,
+          "regex": "^D\\d{8,10}$",
+          "sourceRegex": "^D\\d{8,10}(?:\\s*[/|I1]\\s*\\d{4})?$",
+          "normalizer": "batch",
+          "poly": [
+            [
+              0.7391666666666664,
+              0.6005858585858587
+            ],
+            [
+              0.8970454545454546,
+              0.6005858585858587
+            ],
+            [
+              0.8970454545454546,
+              0.6417373737373738
+            ],
+            [
+              0.7391666666666664,
+              0.6417373737373738
+            ]
+          ]
+        },
+        {
+          "key": "idh",
+          "label": "IDH",
+          "required": true,
+          "compare": true,
+          "regex": "^\\d{6,8}$",
+          "sourceRegex": "^\\d{6,8}$",
+          "normalizer": "digits",
+          "poly": [
+            [
+              0.4959545454545455,
+              0.5991313131313132
+            ],
+            [
+              0.6086666666666667,
+              0.5991313131313132
+            ],
+            [
+              0.6086666666666667,
+              0.6406666666666667
+            ],
+            [
+              0.4959545454545455,
+              0.6406666666666667
+            ]
+          ]
+        },
+        {
+          "key": "weight",
+          "label": "Gewicht",
+          "required": true,
+          "compare": true,
+          "regex": "^\\d+(?:[.,]\\d+)?(?:\\s*(?:KG|KGM|G|L|LTR))?$",
+          "sourceRegex": "^\\d+(?:[.,]\\d+)?(?:\\s*(?:KG|KGM|G|L|LTR))?$",
+          "normalizer": "weight",
+          "poly": [
+            [
+              0.31424237800366944,
+              0.4702020818536932
+            ],
+            [
+              0.48212121212121223,
+              0.4702020818536932
+            ],
+            [
+              0.48212121212121223,
+              0.5568686868686868
+            ],
+            [
+              0.31424237800366944,
+              0.5568686868686868
+            ]
+          ],
+          "digits": 4
+        },
+        {
+          "key": "delivery_note",
+          "label": "Lieferscheinnummer",
+          "required": false,
+          "compare": false,
+          "regex": "^\\d{7,12}$",
+          "sourceRegex": "^\\d{7,12}$",
+          "normalizer": "digits",
+          "poly": [
+            [
+              0.25140913714784563,
+              0.24537376819957388
+            ],
+            [
+              0.4841969696969697,
+              0.24537376819957388
+            ],
+            [
+              0.4841969696969697,
+              0.29896969696969705
+            ],
+            [
+              0.25140913714784563,
+              0.29896969696969705
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "MERCEDES",
+      "name": "Mercedes",
+      "role": "vda",
+      "active": true,
+      "source": {
+        "type": "ocr"
+      },
+      "detection": {
+        "evidenceAliases": [],
+        "minEvidenceMatches": 0,
+        "excludeAliases": [],
+        "minScore": 0.55
+      },
+      "validation": {
+        "minAnchorScore": 0.55,
+        "requiredValidFields": [],
+        "errorMessage": ""
+      },
+      "anchor": {
+        "aliases": [
+          "MERCEDES",
+          "Mercedes",
+          "Mercedes-Benz AG"
+        ],
+        "poly": [
+          [
+            0.1775,
+            0.2288888888888889
+          ],
+          [
+            0.3308333333333333,
+            0.21666666666666667
+          ],
+          [
+            0.33166666666666667,
+            0.24555555555555555
+          ],
+          [
+            0.17833333333333334,
+            0.2588888888888889
+          ]
+        ],
+        "localizeAlias": false,
+        "scaleFrom": "width",
+        "alignFrom": "center",
+        "fallbacks": []
+      },
+      "fields": [
+        {
+          "key": "batch",
+          "label": "Batch",
+          "required": true,
+          "compare": true,
+          "regex": "^D\\d{8,10}$",
+          "sourceRegex": "^D\\d{8,10}$",
+          "normalizer": "batch",
+          "poly": [
+            [
+              0.7027575757575758,
+              0.7722222222222223
+            ],
+            [
+              0.8520150590376421,
+              0.7722222222222223
+            ],
+            [
+              0.8520150590376421,
+              0.8195959595959595
+            ],
+            [
+              0.7027575757575758,
+              0.8195959595959595
+            ]
+          ]
+        },
+        {
+          "key": "idh",
+          "label": "IDH",
+          "required": true,
+          "compare": true,
+          "regex": "^\\d{6,8}$",
+          "sourceRegex": "^\\d{6,8}$",
+          "normalizer": "digits",
+          "poly": [
+            [
+              0.5035606060606062,
+              0.5828888888888889
+            ],
+            [
+              0.6116666666666666,
+              0.5828888888888889
+            ],
+            [
+              0.6116666666666666,
+              0.6258990207248264
+            ],
+            [
+              0.5035606060606062,
+              0.6258990207248264
+            ]
+          ]
+        },
+        {
+          "key": "weight",
+          "label": "Gewicht",
+          "required": true,
+          "compare": true,
+          "regex": "^\\d+(?:[.,]\\d+)?(?:\\s*(?:KG|KGM|G|L|LTR))?$",
+          "sourceRegex": "^\\d+(?:[.,]\\d+)?(?:\\s*(?:KG|KGM|G|L|LTR))?$",
+          "normalizer": "weight",
+          "poly": [
+            [
+              0.34550000000000003,
+              0.5243839000355114
+            ],
+            [
+              0.4343485310872396,
+              0.5243839000355114
+            ],
+            [
+              0.4343485310872396,
+              0.5696565656565657
+            ],
+            [
+              0.34550000000000003,
+              0.5696565656565657
+            ]
+          ],
+          "digits": 4
+        },
+        {
+          "key": "delivery_note",
+          "label": "Lieferscheinnummer",
+          "required": true,
+          "compare": false,
+          "regex": "^\\d{7,9}$",
+          "sourceRegex": "^\\d{7,9}$",
+          "normalizer": "digits",
+          "poly": [
+            [
+              0.3451969696969697,
+              0.31361616161616157
+            ],
+            [
+              0.4957121212121212,
+              0.31361616161616157
+            ],
+            [
+              0.4957121212121212,
+              0.3564848484848485
+            ],
+            [
+              0.3451969696969697,
+              0.3564848484848485
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "HENKEL",
+      "name": "Henkel",
+      "role": "product",
+      "active": true,
+      "source": {
+        "type": "ocr"
+      },
+      "detection": {
+        "evidenceAliases": [],
+        "minEvidenceMatches": 0,
+        "excludeAliases": [],
+        "minScore": 0.55
+      },
+      "validation": {
+        "minAnchorScore": 0.55,
+        "requiredValidFields": [
+          "batch"
+        ],
+        "errorMessage": "Kein gültiges Produktlabel erkannt. Bitte das Produktlabel vollständig und gut lesbar fotografieren."
+      },
+      "anchor": {
+        "aliases": [
+          "Henkel"
+        ],
+        "poly": [
+          [
+            0.5983333333333334,
+            0.8177777777777778
+          ],
+          [
+            0.7141666666666666,
+            0.8111111111111111
+          ],
+          [
+            0.7158333333333333,
+            0.8588888888888889
+          ],
+          [
+            0.6,
+            0.8655555555555555
+          ]
+        ],
+        "localizeAlias": false,
+        "scaleFrom": "width",
+        "alignFrom": "center",
+        "fallbacks": []
+      },
+      "fields": [
+        {
+          "key": "batch",
+          "label": "Batch",
+          "required": true,
+          "compare": true,
+          "regex": "^D\\d{7,9}$",
+          "sourceRegex": "^D\\d{7,9}(?:\\s*[/|I1]\\s*\\d{4})?$",
+          "normalizer": "batch",
+          "poly": [
+            [
+              0.5492727272727272,
+              0.45834337269176134
+            ],
+            [
+              0.6840393401603213,
+              0.45834337269176134
+            ],
+            [
+              0.6840393401603213,
+              0.4969455274468332
+            ],
+            [
+              0.5492727272727272,
+              0.4969455274468332
+            ]
+          ],
+          "digits": 4
+        },
+        {
+          "key": "drum_number",
+          "label": "Fassnummer",
+          "required": true,
+          "compare": false,
+          "regex": "^\\d{3,4}$",
+          "sourceRegex": "^(?:[/|I1]\\s*)?\\d{3,4}$",
+          "normalizer": "last_digits",
+          "digits": 4,
+          "neighbor": {
+            "field": "weight",
+            "directions": [
+              "below"
+            ],
+            "maxDistance": 4
+          },
+          "poly": [
+            [
+              0.6898344146162875,
+              0.4597980414496528
+            ],
+            [
+              0.7568484848484849,
+              0.4597980414496528
+            ],
+            [
+              0.7568484848484849,
+              0.5001872935186324
+            ],
+            [
+              0.6898344146162875,
+              0.5001872935186324
+            ]
+          ]
+        },
+        {
+          "key": "idh",
+          "label": "IDH",
+          "required": true,
+          "compare": true,
+          "regex": "^\\d{6,8}$",
+          "sourceRegex": "^\\d{6,8}$",
+          "normalizer": "digits",
+          "poly": [
+            [
+              0.5977272727272727,
+              0.34648491013652144
+            ],
+            [
+              0.7626515151515151,
+              0.34648491013652144
+            ],
+            [
+              0.7626515151515151,
+              0.393010101010101
+            ],
+            [
+              0.5977272727272727,
+              0.393010101010101
+            ]
+          ]
+        },
+        {
+          "key": "weight",
+          "label": "Gewicht",
+          "required": true,
+          "compare": true,
+          "regex": "^\\d+(?:[.,]\\d+)?(?:\\s*(?:KG|KGM|G|L|LTR))?$",
+          "sourceRegex": "^\\d+(?:[.,]\\d+)?\\s*(?:KG|KGM|G|L|LTR)$",
+          "normalizer": "weight",
+          "poly": [
+            [
+              0.6226363636363634,
+              0.4038383838383839
+            ],
+            [
+              0.7580454545454545,
+              0.4038383838383839
+            ],
+            [
+              0.7580454545454545,
+              0.44828282828282834
+            ],
+            [
+              0.6226363636363634,
+              0.44828282828282834
+            ]
+          ],
+          "digits": 4,
+          "strategy": "unit_required_weight",
+          "searchRadius": 2.4,
+          "neighbor": {
+            "field": "idh",
+            "directions": [
+              "below"
+            ],
+            "maxDistance": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "BMW",
+      "name": "BMW",
+      "role": "vda",
+      "active": true,
+      "source": {
+        "type": "ocr"
+      },
+      "detection": {
+        "evidenceAliases": [],
+        "minEvidenceMatches": 0,
+        "excludeAliases": [],
+        "minScore": 0.55
+      },
+      "validation": {
+        "minAnchorScore": 0.55,
+        "requiredValidFields": [],
+        "errorMessage": ""
+      },
+      "anchor": {
+        "aliases": [
+          "BMW",
+          "BMW (UK) Manufacturing Ltd",
+          "BMW (UK) Manufacturing"
+        ],
+        "poly": [
+          [
+            0.11583333333333333,
+            0.20666666666666667
+          ],
+          [
+            0.35083333333333333,
+            0.18555555555555556
+          ],
+          [
+            0.3525,
+            0.22333333333333333
+          ],
+          [
+            0.11833333333333333,
+            0.24555555555555555
+          ]
+        ],
+        "localizeAlias": false,
+        "scaleFrom": "width",
+        "alignFrom": "center",
+        "fallbacks": []
+      },
+      "fields": [
+        {
+          "key": "batch",
+          "label": "Batch",
+          "required": true,
+          "compare": true,
+          "regex": "^D\\d{8,10}$",
+          "sourceRegex": "^D\\d{8,10}(?:\\s*[/|I1]\\s*\\d{4})?$",
+          "normalizer": "batch",
+          "poly": [
+            [
+              0.5931060606060606,
+              0.7804242424242426
+            ],
+            [
+              0.7859848484848485,
+              0.7804242424242426
+            ],
+            [
+              0.7859848484848485,
+              0.8404848484848485
+            ],
+            [
+              0.5931060606060606,
+              0.8404848484848485
+            ]
+          ]
+        },
+        {
+          "key": "idh",
+          "label": "IDH",
+          "required": true,
+          "compare": true,
+          "regex": "^\\d{6,8}$",
+          "sourceRegex": "^\\d{6,8}$",
+          "normalizer": "digits",
+          "poly": [
+            [
+              0.4974090909090909,
+              0.6281616161616163
+            ],
+            [
+              0.6167575757575757,
+              0.6281616161616163
+            ],
+            [
+              0.6167575757575757,
+              0.6672929292929293
+            ],
+            [
+              0.4974090909090909,
+              0.6672929292929293
+            ]
+          ]
+        },
+        {
+          "key": "weight",
+          "label": "Gewicht",
+          "required": true,
+          "compare": true,
+          "regex": "^\\d+(?:[.,]\\d+)?\\s*(?:KG|KGM|G)$",
+          "sourceRegex": "^\\d+(?:[.,]\\d+)?\\s*(?:KG|KGM|G)$",
+          "normalizer": "weight",
+          "poly": [
+            [
+              0.35300004623875475,
+              0.5639797979797979
+            ],
+            [
+              0.47889393939393937,
+              0.5639797979797979
+            ],
+            [
+              0.47889393939393937,
+              0.6119798596314708
+            ],
+            [
+              0.35300004623875475,
+              0.6119798596314708
+            ]
+          ],
+          "digits": 4,
+          "preferUnit": true
+        },
+        {
+          "key": "delivery_note",
+          "label": "Lieferscheinnummer",
+          "required": false,
+          "compare": false,
+          "regex": "^\\d{7,12}$",
+          "sourceRegex": "^\\d{7,12}$",
+          "normalizer": "digits",
+          "poly": [
+            [
+              0.20139393939393938,
+              0.33555555555555555
+            ],
+            [
+              0.39065146891276037,
+              0.33555555555555555
+            ],
+            [
+              0.39065146891276037,
+              0.39787878787878783
+            ],
+            [
+              0.20139393939393938,
+              0.39787878787878783
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "STAB",
+      "name": "STAB",
+      "role": "vda",
+      "active": true,
+      "source": {
+        "type": "ocr"
+      },
+      "detection": {
+        "evidenceAliases": [],
+        "minEvidenceMatches": 0,
+        "excludeAliases": [],
+        "minScore": 0.55
+      },
+      "validation": {
+        "minAnchorScore": 0.55,
+        "requiredValidFields": [],
+        "errorMessage": ""
+      },
+      "anchor": {
+        "aliases": [
+          "STAB",
+          "FIAT",
+          "STAB.145 FIAT"
+        ],
+        "poly": [
+          [
+            0.15583333333333332,
+            0.18666666666666668
+          ],
+          [
+            0.31166666666666665,
+            0.18888888888888888
+          ],
+          [
+            0.31166666666666665,
+            0.22
+          ],
+          [
+            0.155,
+            0.21777777777777776
+          ]
+        ],
+        "localizeAlias": false,
+        "scaleFrom": "width",
+        "alignFrom": "center",
+        "fallbacks": []
+      },
+      "fields": [
+        {
+          "key": "batch",
+          "label": "Batch",
+          "required": true,
+          "compare": true,
+          "regex": "^D\\d{8,10}$",
+          "sourceRegex": "^D\\d{8,10}(?:\\s*[/|I1]\\s*\\d{4})?$",
+          "normalizer": "batch",
+          "poly": [
+            [
+              0.7239848484848487,
+              0.6397171100654987
+            ],
+            [
+              0.8593483923709754,
+              0.6397171100654987
+            ],
+            [
+              0.8593483923709754,
+              0.6777575757575759
+            ],
+            [
+              0.7239848484848487,
+              0.6777575757575759
+            ]
+          ]
+        },
+        {
+          "key": "idh",
+          "label": "IDH",
+          "required": true,
+          "compare": true,
+          "regex": "^\\d{6,8}$",
+          "sourceRegex": "^\\d{6,8}$",
+          "normalizer": "digits",
+          "poly": [
+            [
+              0.4998484848484849,
+              0.6292525252525253
+            ],
+            [
+              0.6000757575757576,
+              0.6292525252525253
+            ],
+            [
+              0.6000757575757576,
+              0.6611514534998422
+            ],
+            [
+              0.4998484848484849,
+              0.6611514534998422
+            ]
+          ]
+        },
+        {
+          "key": "weight",
+          "label": "Gewicht",
+          "required": true,
+          "compare": true,
+          "regex": "^\\d+(?:[.,]\\d+)?(?:\\s*(?:KG|KGM|G|L|LTR))?$",
+          "sourceRegex": "^\\d+(?:[.,]\\d+)?(?:\\s*(?:KG|KGM|G|L|LTR))?$",
+          "normalizer": "weight",
+          "poly": [
+            [
+              0.3327424704811789,
+              0.5173939393939392
+            ],
+            [
+              0.4895303030303031,
+              0.5173939393939392
+            ],
+            [
+              0.4895303030303031,
+              0.5934140797624683
+            ],
+            [
+              0.3327424704811789,
+              0.5934140797624683
+            ]
+          ],
+          "digits": 4
+        },
+        {
+          "key": "delivery_note",
+          "label": "Lieferscheinnummer",
+          "required": false,
+          "compare": false,
+          "regex": "^\\d{7,12}$",
+          "sourceRegex": "^\\d{7,12}$",
+          "normalizer": "digits",
+          "poly": [
+            [
+              0.2855000462387547,
+              0.3100606060606061
+            ],
+            [
+              0.4888939393939393,
+              0.3100606060606061
+            ],
+            [
+              0.4888939393939393,
+              0.36832323232323233
+            ],
+            [
+              0.2855000462387547,
+              0.36832323232323233
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "JAGUAR",
+      "name": "Jaguar",
+      "role": "vda",
+      "active": true,
+      "source": {
+        "type": "ocr"
+      },
+      "detection": {
+        "evidenceAliases": [],
+        "minEvidenceMatches": 0,
+        "excludeAliases": [],
+        "minScore": 0.55
+      },
+      "validation": {
+        "minAnchorScore": 0.55,
+        "requiredValidFields": [],
+        "errorMessage": ""
+      },
+      "anchor": {
+        "aliases": [
+          "Jaguar",
+          "Jaguar Land Rover Ltd"
+        ],
+        "poly": [
+          [
+            0.31833333333333336,
+            0.24222222222222223
+          ],
+          [
+            0.5525,
+            0.24
+          ],
+          [
+            0.5525,
+            0.2733333333333333
+          ],
+          [
+            0.31833333333333336,
+            0.27555555555555555
+          ]
+        ],
+        "localizeAlias": false,
+        "scaleFrom": "width",
+        "alignFrom": "center",
+        "fallbacks": []
+      },
+      "fields": [
+        {
+          "key": "batch",
+          "label": "Batch",
+          "required": true,
+          "compare": true,
+          "regex": "^D\\d{8,10}$",
+          "sourceRegex": "^D\\d{8,10}(?:\\s*[/|I1]\\s*\\d{4})?$",
+          "normalizer": "batch",
+          "poly": [
+            [
+              0.6638030303030303,
+              0.48593945559106694
+            ],
+            [
+              0.8498333333333333,
+              0.48593945559106694
+            ],
+            [
+              0.8498333333333333,
+              0.5230506283538511
+            ],
+            [
+              0.6638030303030303,
+              0.5230506283538511
+            ]
+          ]
+        },
+        {
+          "key": "idh",
+          "label": "IDH",
+          "required": true,
+          "compare": true,
+          "regex": "^\\d{6,8}$",
+          "sourceRegex": "^\\d{6,8}$",
+          "normalizer": "digits",
+          "poly": [
+            [
+              0.6317424242424242,
+              0.4445657182173296
+            ],
+            [
+              0.7706060606060605,
+              0.4445657182173296
+            ],
+            [
+              0.7706060606060605,
+              0.49442430407591537
+            ],
+            [
+              0.6317424242424242,
+              0.49442430407591537
+            ]
+          ]
+        },
+        {
+          "key": "weight",
+          "label": "Gewicht",
+          "required": true,
+          "compare": true,
+          "regex": "^\\d+(?:[.,]\\d+)?(?:\\s*(?:KG|KGM|G|L|LTR))?$",
+          "sourceRegex": "^\\d+(?:[.,]\\d+)?(?:\\s*(?:KG|KGM|G|L|LTR))?$",
+          "normalizer": "weight",
+          "poly": [
+            [
+              0.24160606060606057,
+              0.33985858585858586
+            ],
+            [
+              0.2878635901248816,
+              0.33985858585858586
+            ],
+            [
+              0.2878635901248816,
+              0.3589292929292929
+            ],
+            [
+              0.24160606060606057,
+              0.3589292929292929
+            ]
+          ],
+          "digits": 4
+        },
+        {
+          "key": "delivery_note",
+          "label": "Lieferscheinnummer",
+          "required": false,
+          "compare": false,
+          "regex": "^\\d{7,12}$",
+          "sourceRegex": "^\\d{7,12}$",
+          "normalizer": "digits",
+          "poly": [
+            [
+              0.4736363636363636,
+              0.4629697586213699
+            ],
+            [
+              0.6198484848484849,
+              0.4629697586213699
+            ],
+            [
+              0.6198484848484849,
+              0.5001616161616163
+            ],
+            [
+              0.4736363636363636,
+              0.5001616161616163
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "DACHSER",
+      "name": "Dachser",
+      "role": "vda",
+      "active": true,
+      "source": {
+        "type": "ocr"
+      },
+      "detection": {
+        "evidenceAliases": [],
+        "minEvidenceMatches": 0,
+        "excludeAliases": [],
+        "minScore": 0.55
+      },
+      "validation": {
+        "minAnchorScore": 0.55,
+        "requiredValidFields": [],
+        "errorMessage": ""
+      },
+      "anchor": {
+        "aliases": [
+          "Henkel Teroson GmbH"
+        ],
+        "poly": [
+          [
+            0.2975,
+            0.09222222222222222
+          ],
+          [
+            0.4066666666666667,
+            0.09666666666666666
+          ],
+          [
+            0.4058333333333333,
+            0.11888888888888889
+          ],
+          [
+            0.2966666666666667,
+            0.11444444444444445
+          ]
+        ],
+        "localizeAlias": false,
+        "scaleFrom": "width",
+        "alignFrom": "center",
+        "fallbacks": []
+      },
+      "fields": [
+        {
+          "key": "batch",
+          "label": "Batch",
+          "required": true,
+          "compare": true,
+          "regex": "^D\\d{8,10}$",
+          "sourceRegex": "^D\\d{8,10}(?:\\s*[/|I1]\\s*\\d{4})?$",
+          "normalizer": "batch",
+          "poly": [
+            [
+              0.4126060143673058,
+              0.31496969696969696
+            ],
+            [
+              0.5204242424242425,
+              0.31496969696969696
+            ],
+            [
+              0.5204242424242425,
+              0.34220202020202023
+            ],
+            [
+              0.4126060143673058,
+              0.34220202020202023
+            ]
+          ]
+        },
+        {
+          "key": "idh",
+          "label": "IDH",
+          "required": true,
+          "compare": true,
+          "regex": "^\\d{6,8}$",
+          "sourceRegex": "^\\d{6,8}$",
+          "normalizer": "digits",
+          "poly": [
+            [
+              0.40860606060606064,
+              0.253959595959596
+            ],
+            [
+              0.5075303030303031,
+              0.253959595959596
+            ],
+            [
+              0.5075303030303031,
+              0.27917171717171724
+            ],
+            [
+              0.40860606060606064,
+              0.27917171717171724
+            ]
+          ]
+        },
+        {
+          "key": "weight",
+          "label": "Gewicht",
+          "required": true,
+          "compare": true,
+          "regex": "^(?:[1-9]|[1-9]\\d)$",
+          "sourceRegex": "^(?:[1-9]|[1-9]\\d)$",
+          "normalizer": "weight",
+          "poly": [
+            [
+              0.6337272727272728,
+              0.3462222222222222
+            ],
+            [
+              0.6722575757575758,
+              0.3462222222222222
+            ],
+            [
+              0.6722575757575758,
+              0.3648888888888889
+            ],
+            [
+              0.6337272727272728,
+              0.3648888888888889
+            ]
+          ],
+          "digits": 4,
+          "locator": {
+            "aliases": [
+              "Quantity"
+            ],
+            "direction": "right",
+            "maxDistance": 7,
+            "minAliasScore": 0.72,
+            "strict": false,
+            "preferRightmost": false,
+            "preferLeftmost": false,
+            "preferUnit": false,
+            "preferBatch": false
+          }
+        },
+        {
+          "key": "delivery_note",
+          "label": "Lieferscheinnummer",
+          "required": false,
+          "compare": false,
+          "regex": "^\\d{7,12}$",
+          "sourceRegex": "^\\d{7,12}$",
+          "normalizer": "digits",
+          "poly": [
+            [
+              0.6307121212121214,
+              0.2795959595959596
+            ],
+            [
+              0.739439393939394,
+              0.2795959595959596
+            ],
+            [
+              0.739439393939394,
+              0.3114141414141415
+            ],
+            [
+              0.6307121212121214,
+              0.3114141414141415
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "SCANIA",
+      "name": "Scania",
+      "role": "vda",
+      "active": true,
+      "source": {
+        "type": "ocr"
+      },
+      "detection": {
+        "evidenceAliases": [],
+        "minEvidenceMatches": 0,
+        "excludeAliases": [],
+        "minScore": 0.55
+      },
+      "validation": {
+        "minAnchorScore": 0.55,
+        "requiredValidFields": [],
+        "errorMessage": ""
+      },
+      "anchor": {
+        "aliases": [
+          "SCANIA",
+          "SCANIA AB (PUBL)"
+        ],
+        "poly": [
+          [
+            0.31,
+            0.17222222222222222
+          ],
+          [
+            0.4875,
+            0.17777777777777778
+          ],
+          [
+            0.4875,
+            0.2111111111111111
+          ],
+          [
+            0.31,
+            0.20666666666666667
+          ]
+        ],
+        "localizeAlias": false,
+        "scaleFrom": "width",
+        "alignFrom": "center",
+        "fallbacks": []
+      },
+      "fields": [
+        {
+          "key": "batch",
+          "label": "Batch",
+          "required": true,
+          "compare": true,
+          "regex": "^D\\d{8,10}$",
+          "sourceRegex": "^D\\d{8,10}(?:\\s*[:;/|I1]\\s*\\d{4,6})?$",
+          "normalizer": "batch",
+          "poly": [
+            [
+              0.658,
+              0.6447271494239268
+            ],
+            [
+              0.8716969696969695,
+              0.6447271494239268
+            ],
+            [
+              0.8716969696969695,
+              0.6963838383838385
+            ],
+            [
+              0.658,
+              0.6963838383838385
+            ]
+          ]
+        },
+        {
+          "key": "idh",
+          "label": "IDH",
+          "required": true,
+          "compare": true,
+          "regex": "^\\d{6,8}$",
+          "sourceRegex": "^\\d{6,8}$",
+          "normalizer": "digits",
+          "poly": [
+            [
+              0.18003030303030307,
+              0.4516363019846906
+            ],
+            [
+              0.3864091371478456,
+              0.4516363019846906
+            ],
+            [
+              0.3864091371478456,
+              0.5201818181818182
+            ],
+            [
+              0.18003030303030307,
+              0.5201818181818182
+            ]
+          ]
+        },
+        {
+          "key": "weight",
+          "label": "Gewicht",
+          "required": true,
+          "compare": true,
+          "regex": "^\\d+(?:[.,]\\d+)?\\s*KG$",
+          "sourceRegex": "^(?:\\d{1,4}(?:[.,]\\d+)?\\s*K(?:G)?|\\d{1,4}(?:[.,]\\d+)?\\s*[/|I]\\s*\\d{1,4}(?:[.,]\\d+)?\\s*K(?:G)?)$",
+          "normalizer": "net_weight",
+          "poly": [
+            [
+              0.6622272727272727,
+              0.5344242424242424
+            ],
+            [
+              0.8842121212121212,
+              0.5344242424242424
+            ],
+            [
+              0.8842121212121212,
+              0.5986060606060607
+            ],
+            [
+              0.6622272727272727,
+              0.5986060606060607
+            ]
+          ],
+          "digits": 4,
+          "searchRadius": 1.8,
+          "minOverlap": 0,
+          "preferRightmost": true,
+          "preferUnit": true,
+          "strategy": "net_pair_weight"
+        },
+        {
+          "key": "delivery_note",
+          "label": "Lieferscheinnummer",
+          "required": false,
+          "compare": false,
+          "regex": "^\\d{7,12}$",
+          "sourceRegex": "^\\d{7,12}$",
+          "normalizer": "digits",
+          "poly": [
+            [
+              0.18534848484848482,
+              0.39375757575757575
+            ],
+            [
+              0.3159394401781487,
+              0.39375757575757575
+            ],
+            [
+              0.3159394401781487,
+              0.4392727272727273
+            ],
+            [
+              0.18534848484848482,
+              0.4392727272727273
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "VW",
+      "name": "VW",
+      "role": "vda",
+      "active": true,
+      "source": {
+        "type": "ocr"
+      },
+      "detection": {
+        "evidenceAliases": [],
+        "minEvidenceMatches": 0,
+        "excludeAliases": [],
+        "minScore": 0.55
+      },
+      "validation": {
+        "minAnchorScore": 0.55,
+        "requiredValidFields": [],
+        "errorMessage": ""
+      },
+      "anchor": {
+        "aliases": [
+          "Volkswagen",
+          "Volkswagen Sachsen GmbH",
+          "VOLKSWAGEN AG",
+          "Volkswagen AG"
+        ],
+        "poly": [
+          [
+            0.29583333333333334,
+            0.16111111111111112
+          ],
+          [
+            0.5741666666666667,
+            0.15333333333333332
+          ],
+          [
+            0.575,
+            0.1922222222222222
+          ],
+          [
+            0.2966666666666667,
+            0.1988888888888889
+          ]
+        ],
+        "localizeAlias": false,
+        "scaleFrom": "height",
+        "alignFrom": "left",
+        "fallbacks": []
+      },
+      "fields": [
+        {
+          "key": "batch",
+          "label": "Batch",
+          "required": true,
+          "compare": true,
+          "regex": "^D\\d{8,10}$",
+          "sourceRegex": "^D\\d{8,10}(?:\\s*[/|I1]\\s*\\d{4})?$",
+          "normalizer": "text",
+          "poly": [
+            [
+              0.7139848484848484,
+              0.6324444444444445
+            ],
+            [
+              0.8761666666666668,
+              0.6324444444444445
+            ],
+            [
+              0.8761666666666668,
+              0.6697777777777777
+            ],
+            [
+              0.7139848484848484,
+              0.6697777777777777
+            ]
+          ],
+          "locator": {
+            "aliases": [
+              "Batch Nr",
+              "Batch No",
+              "Batch number"
+            ],
+            "direction": "below_or_right",
+            "maxDistance": 6,
+            "minAliasScore": 0.72,
+            "strict": true,
+            "preferRightmost": false,
+            "preferLeftmost": false,
+            "preferUnit": false,
+            "preferBatch": true
+          }
+        },
+        {
+          "key": "idh",
+          "label": "IDH",
+          "required": true,
+          "compare": true,
+          "regex": "^\\d{7}$",
+          "sourceRegex": "^(?:\\d{7,10}\\s+\\d{7}|\\d{14,17})$",
+          "normalizer": "last_digits",
+          "poly": [
+            [
+              0.19425757575757574,
+              0.7166464646464648
+            ],
+            [
+              0.6127878787878787,
+              0.7166464646464648
+            ],
+            [
+              0.6127878787878787,
+              0.7923434343434342
+            ],
+            [
+              0.19425757575757574,
+              0.7923434343434342
+            ]
+          ],
+          "digits": 7,
+          "locator": {
+            "aliases": [
+              "Delivery number / IDH",
+              "Delivery number IDH",
+              "Delivery number"
+            ],
+            "direction": "below_or_right",
+            "maxDistance": 8,
+            "minAliasScore": 0.72,
+            "strict": true,
+            "preferRightmost": true,
+            "preferLeftmost": false,
+            "preferUnit": false,
+            "preferBatch": false
+          },
+          "strategy": "numeric_pair",
+          "pairLeftMinDigits": 7,
+          "pairLeftMaxDigits": 10,
+          "tailDigits": 7,
+          "combinedMinDigits": 14
+        },
+        {
+          "key": "weight",
+          "label": "Gewicht",
+          "required": true,
+          "compare": true,
+          "regex": "^\\d+(?:[.,]\\d+)?(?:\\s*(?:KG|KGM|G|L|LTR))?$",
+          "sourceRegex": "^\\d+(?:[.,]\\d+)?\\s*(?:KGM|LTR)$",
+          "normalizer": "weight",
+          "poly": [
+            [
+              0.7168636363636365,
+              0.3880808080808081
+            ],
+            [
+              0.8628333333333333,
+              0.3880808080808081
+            ],
+            [
+              0.8628333333333333,
+              0.42666666666666664
+            ],
+            [
+              0.7168636363636365,
+              0.42666666666666664
+            ]
+          ],
+          "digits": 4,
+          "locator": {
+            "aliases": [
+              "Quantity"
+            ],
+            "direction": "below_or_right",
+            "maxDistance": 5.5,
+            "minAliasScore": 0.72,
+            "strict": false,
+            "preferRightmost": false,
+            "preferLeftmost": false,
+            "preferUnit": true,
+            "preferBatch": false
+          },
+          "strategy": "quantity_weight",
+          "searchRadius": 2.2,
+          "strategyUnits": [
+            "KGM",
+            "LTR"
+          ]
+        },
+        {
+          "key": "delivery_note",
+          "label": "Lieferscheinnummer",
+          "required": false,
+          "compare": false,
+          "regex": "^\\d{7,12}$",
+          "sourceRegex": "^(?:\\d{7,10}\\s+\\d{7}|\\d{14,17})$",
+          "normalizer": "leading_delivery_digits",
+          "poly": [
+            [
+              0.1762121212121212,
+              0.3925050505050505
+            ],
+            [
+              0.3008333333333334,
+              0.3925050505050505
+            ],
+            [
+              0.3008333333333334,
+              0.43466666666666665
+            ],
+            [
+              0.1762121212121212,
+              0.43466666666666665
+            ]
+          ],
+          "locator": {
+            "aliases": [
+              "Delivery number / IDH",
+              "Delivery number IDH",
+              "Delivery number"
+            ],
+            "direction": "below_or_right",
+            "maxDistance": 8,
+            "minAliasScore": 0.72,
+            "strict": true,
+            "preferRightmost": false,
+            "preferLeftmost": true,
+            "preferUnit": false,
+            "preferBatch": false
+          },
+          "tailDigits": 7,
+          "combinedMinDigits": 14,
+          "strategy": "numeric_pair",
+          "pairLeftMinDigits": 7,
+          "pairLeftMaxDigits": 10
+        }
+      ]
+    },
+    {
+      "id": "SEGRO",
+      "name": "Segro",
+      "role": "vda",
+      "active": true,
+      "source": {
+        "type": "ocr"
+      },
+      "detection": {
+        "evidenceAliases": [],
+        "minEvidenceMatches": 0,
+        "excludeAliases": [],
+        "minScore": 0.55
+      },
+      "validation": {
+        "minAnchorScore": 0.55,
+        "requiredValidFields": [],
+        "errorMessage": ""
+      },
+      "anchor": {
+        "aliases": [
+          "SEGRO LOGISTICS PARK",
+          "SERGO"
+        ],
+        "poly": [
+          [
+            0.31833333333333336,
+            0.09111111111111111
+          ],
+          [
+            0.5616666666666666,
+            0.10888888888888888
+          ],
+          [
+            0.5608333333333333,
+            0.1388888888888889
+          ],
+          [
+            0.31666666666666665,
+            0.12111111111111111
+          ]
+        ],
+        "localizeAlias": false,
+        "scaleFrom": "width",
+        "alignFrom": "center",
+        "fallbacks": []
+      },
+      "fields": [
+        {
+          "key": "batch",
+          "label": "Batch",
+          "required": true,
+          "compare": true,
+          "regex": "^D\\d{8,10}$",
+          "sourceRegex": "^D\\d{8,10}(?:\\s*[/|I1]\\s*\\d{4})?$",
+          "normalizer": "batch",
+          "poly": [
+            [
+              0.6494242424242425,
+              0.644080808080808
+            ],
+            [
+              0.7595151515151516,
+              0.644080808080808
+            ],
+            [
+              0.7595151515151516,
+              0.6843030303030304
+            ],
+            [
+              0.6494242424242425,
+              0.6843030303030304
+            ]
+          ]
+        },
+        {
+          "key": "weight",
+          "label": "Gewicht",
+          "required": true,
+          "compare": true,
+          "regex": "^\\d+(?:[.,]\\d+)?(?:\\s*(?:KG|KGM|G|L|LTR))?$",
+          "sourceRegex": "^\\d+(?:[.,]\\d+)?(?:\\s*(?:KG|KGM|G|L|LTR))?$",
+          "normalizer": "weight",
+          "poly": [
+            [
+              0.7300454545454546,
+              0.40208080808080804
+            ],
+            [
+              0.7824545454545454,
+              0.40208080808080804
+            ],
+            [
+              0.7824545454545454,
+              0.4434747474747475
+            ],
+            [
+              0.7300454545454546,
+              0.4434747474747475
+            ]
+          ],
+          "digits": 4
+        },
+        {
+          "key": "delivery_note",
+          "label": "Lieferscheinnummer",
+          "required": false,
+          "compare": false,
+          "regex": "^\\d{7,12}$",
+          "sourceRegex": "^\\d{7,12}$",
+          "normalizer": "digits",
+          "poly": [
+            [
+              0.17154545454545456,
+              0.31129286764125624
+            ],
+            [
+              0.2908787878787879,
+              0.31129286764125624
+            ],
+            [
+              0.2908787878787879,
+              0.36941414141414136
+            ],
+            [
+              0.17154545454545456,
+              0.36941414141414136
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "SKODA",
+      "name": "Skoda",
+      "role": "vda",
+      "active": true,
+      "source": {
+        "type": "ocr"
+      },
+      "detection": {
+        "evidenceAliases": [],
+        "minEvidenceMatches": 0,
+        "excludeAliases": [],
+        "minScore": 0.55
+      },
+      "validation": {
+        "minAnchorScore": 0.55,
+        "requiredValidFields": [],
+        "errorMessage": ""
+      },
+      "anchor": {
+        "aliases": [
+          "SKODA AUTO A.S.",
+          "SKODA",
+          "SKODA AUTO AS"
+        ],
+        "poly": [
+          [
+            0.36333333333333334,
+            0.1288888888888889
+          ],
+          [
+            0.5183333333333333,
+            0.13555555555555557
+          ],
+          [
+            0.5175,
+            0.16555555555555557
+          ],
+          [
+            0.3625,
+            0.15888888888888889
+          ]
+        ],
+        "localizeAlias": false,
+        "scaleFrom": "width",
+        "alignFrom": "center",
+        "fallbacks": []
+      },
+      "fields": [
+        {
+          "key": "batch",
+          "label": "Batch",
+          "required": true,
+          "compare": true,
+          "regex": "^D\\d{8,10}$",
+          "sourceRegex": "^D\\d{8,10}(?:\\s*[/|I1]\\s*\\d{4})?$",
+          "normalizer": "batch",
+          "poly": [
+            [
+              0.663378787878788,
+              0.5988080808080809
+            ],
+            [
+              0.7788939393939394,
+              0.5988080808080809
+            ],
+            [
+              0.7788939393939394,
+              0.631090909090909
+            ],
+            [
+              0.663378787878788,
+              0.631090909090909
+            ]
+          ]
+        },
+        {
+          "key": "weight",
+          "label": "Gewicht",
+          "required": true,
+          "compare": true,
+          "regex": "^\\d+(?:[.,]\\d+)?(?:\\s*(?:KG|KGM|G|L|LTR))?$",
+          "sourceRegex": "^\\d+(?:[.,]\\d+)?(?:\\s*(?:KG|KGM|G|L|LTR))?$",
+          "normalizer": "weight",
+          "poly": [
+            [
+              0.6754453465536235,
+              0.389240440037681
+            ],
+            [
+              0.7377814101642955,
+              0.389240440037681
+            ],
+            [
+              0.7377814101642955,
+              0.4237358815921828
+            ],
+            [
+              0.6754453465536235,
+              0.4237358815921828
+            ]
+          ],
+          "digits": 4,
+          "searchRadius": 1,
+          "minOverlap": 0,
+          "locator": {
+            "aliases": [
+              "NETTO KG",
+              "NETTO"
+            ],
+            "direction": "below",
+            "maxDistance": 4.1,
+            "minAliasScore": 0.65,
+            "strict": false,
+            "preferRightmost": false,
+            "preferLeftmost": true,
+            "preferUnit": false,
+            "preferBatch": false
+          }
+        },
+        {
+          "key": "delivery_note",
+          "label": "Lieferscheinnummer",
+          "required": false,
+          "compare": false,
+          "regex": "^\\d{7,12}$",
+          "sourceRegex": "^\\d{7,12}$",
+          "normalizer": "digits",
+          "poly": [
+            [
+              0.21483333333333332,
+              0.3730505050505051
+            ],
+            [
+              0.3439545916933002,
+              0.3730505050505051
+            ],
+            [
+              0.3439545916933002,
+              0.4178585858585859
+            ],
+            [
+              0.21483333333333332,
+              0.4178585858585859
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "INTERN1",
+      "name": "Intern1",
+      "role": "vda",
+      "active": true,
+      "source": {
+        "type": "ocr"
+      },
+      "detection": {
+        "evidenceAliases": [],
+        "minEvidenceMatches": 0,
+        "excludeAliases": [],
+        "minScore": 0.55
+      },
+      "validation": {
+        "minAnchorScore": 0.55,
+        "requiredValidFields": [],
+        "errorMessage": ""
+      },
+      "anchor": {
+        "aliases": [
+          "Alte Materialnummer"
+        ],
+        "poly": [
+          [
+            0.2175,
+            0.4011111111111111
+          ],
+          [
+            0.31583333333333335,
+            0.41444444444444445
+          ],
+          [
+            0.315,
+            0.43333333333333335
+          ],
+          [
+            0.21583333333333332,
+            0.42
+          ]
+        ],
+        "localizeAlias": false,
+        "scaleFrom": "width",
+        "alignFrom": "center",
+        "fallbacks": []
+      },
+      "fields": [
+        {
+          "key": "batch",
+          "label": "Batch",
+          "required": true,
+          "compare": true,
+          "regex": "^D\\d{8,10}$",
+          "sourceRegex": "^D\\d{8,10}(?:\\s*[/|I1]\\s*\\d{4})?$",
+          "normalizer": "batch",
+          "poly": [
+            [
+              0.3961818181818182,
+              0.34311111111111114
+            ],
+            [
+              0.5203333333333333,
+              0.34311111111111114
+            ],
+            [
+              0.5203333333333333,
+              0.37951515151515147
+            ],
+            [
+              0.3961818181818182,
+              0.37951515151515147
+            ]
+          ]
+        },
+        {
+          "key": "idh",
+          "label": "IDH",
+          "required": true,
+          "compare": true,
+          "regex": "^\\d{6,8}$",
+          "sourceRegex": "^\\d{6,8}$",
+          "normalizer": "digits",
+          "poly": [
+            [
+              0.20698484848484847,
+              0.3297777777777778
+            ],
+            [
+              0.29884848484848475,
+              0.3297777777777778
+            ],
+            [
+              0.29884848484848475,
+              0.3682020202020202
+            ],
+            [
+              0.20698484848484847,
+              0.3682020202020202
+            ]
+          ]
+        },
+        {
+          "key": "weight",
+          "label": "Gewicht",
+          "required": true,
+          "compare": true,
+          "regex": "^(?:\\d+|\\d{1,3}(?:\\.\\d{3})+)(?:,\\d+)?(?:\\s*(?:KG|KGM|G|L|LTR))?$",
+          "sourceRegex": "^(?:\\d+|\\d{1,3}(?:\\.\\d{3})+)(?:,\\d+)?(?:\\s*(?:KG|KGM|G|L|LTR))?$",
+          "normalizer": "text",
+          "poly": [
+            [
+              0.5813333333333333,
+              0.3506666666666667
+            ],
+            [
+              0.6711666666666667,
+              0.3506666666666667
+            ],
+            [
+              0.6711666666666667,
+              0.3848888888888889
+            ],
+            [
+              0.5813333333333333,
+              0.3848888888888889
+            ]
+          ],
+          "digits": 4
+        },
+        {
+          "key": "delivery_note",
+          "label": "Lieferscheinnummer",
+          "required": false,
+          "compare": false,
+          "regex": "^\\d{10}\\s*-\\s*\\d{4}$",
+          "sourceRegex": "^\\d{10}\\s*[-–—/|I]\\s*\\d{4}$",
+          "normalizer": "text",
+          "poly": [
+            [
+              0.5839848484848484,
+              0.5429293545809659
+            ],
+            [
+              0.7206363636363636,
+              0.5429293545809659
+            ],
+            [
+              0.7206363636363636,
+              0.5747474747474748
+            ],
+            [
+              0.5839848484848484,
+              0.5747474747474748
+            ]
+          ],
+          "minOverlap": 0.02,
+          "searchRadius": 1.25,
+          "locator": {
+            "aliases": [
+              "Transportauftrag - Position",
+              "Transportauftrag Position"
+            ],
+            "direction": "below_or_right",
+            "maxDistance": 6.5,
+            "minAliasScore": 0.72,
+            "strict": true,
+            "preferRightmost": false,
+            "preferLeftmost": false,
+            "preferUnit": false,
+            "preferBatch": false
+          },
+          "digits": 4
+        }
+      ]
+    },
+    {
+      "id": "INTERN2",
+      "name": "Intern2",
+      "role": "vda",
+      "active": true,
+      "source": {
+        "type": "ocr"
+      },
+      "detection": {
+        "evidenceAliases": [
+          "Prüflos",
+          "Inspection Lot",
+          "Referenzbeleg",
+          "Transportauftrag - Position"
+        ],
+        "minEvidenceMatches": 1,
+        "excludeAliases": [
+          "Alte Materialnummer"
+        ],
+        "minScore": 0.62
+      },
+      "validation": {
+        "minAnchorScore": 0.55,
+        "requiredValidFields": [],
+        "errorMessage": ""
+      },
+      "anchor": {
+        "aliases": [
+          "Prüflos",
+          "Inspection Lot"
+        ],
+        "poly": [
+          [
+            0.6366666666666667,
+            0.39111111111111113
+          ],
+          [
+            0.6908333333333333,
+            0.39444444444444443
+          ],
+          [
+            0.69,
+            0.41888888888888887
+          ],
+          [
+            0.6366666666666667,
+            0.41555555555555557
+          ]
+        ],
+        "localizeAlias": true,
+        "scaleFrom": "width",
+        "alignFrom": "center",
+        "fallbacks": []
+      },
+      "fields": [
+        {
+          "key": "batch",
+          "label": "Batch",
+          "required": true,
+          "compare": true,
+          "regex": "^D\\d{7,10}$",
+          "sourceRegex": "^D\\d{6,10}(?:\\s*[/|I1]\\s*\\d{4})?$",
+          "normalizer": "batch",
+          "poly": [
+            [
+              0.4011363636363636,
+              0.25799999999999995
+            ],
+            [
+              0.5483333333333333,
+              0.25799999999999995
+            ],
+            [
+              0.5483333333333333,
+              0.2953333333333333
+            ],
+            [
+              0.4011363636363636,
+              0.2953333333333333
+            ]
+          ],
+          "digits": 4
+        },
+        {
+          "key": "idh",
+          "label": "IDH",
+          "required": true,
+          "compare": true,
+          "regex": "^\\d{6,8}$",
+          "sourceRegex": "^\\d{5,10}$",
+          "normalizer": "digits",
+          "poly": [
+            [
+              0.1409848484848485,
+              0.25723232323232326
+            ],
+            [
+              0.24704550078420928,
+              0.25723232323232326
+            ],
+            [
+              0.24704550078420928,
+              0.29317171717171714
+            ],
+            [
+              0.1409848484848485,
+              0.29317171717171714
+            ]
+          ]
+        },
+        {
+          "key": "weight",
+          "label": "Gewicht",
+          "required": true,
+          "compare": true,
+          "regex": "^\\d{1,3}(?:\\.\\d{3})*(?:,\\d+)?(?:\\s*(?:KG|KGM|G|L|LTR))?$",
+          "sourceRegex": "^\\d{1,3}(?:\\.\\d{3})*(?:,\\d+)?(?:\\s*(?:KG|KGM|G|L|LTR))?$",
+          "normalizer": "text",
+          "poly": [
+            [
+              0.14310606060606063,
+              0.42254551619712755
+            ],
+            [
+              0.23931818181818182,
+              0.42254551619712755
+            ],
+            [
+              0.23931818181818182,
+              0.45321212121212123
+            ],
+            [
+              0.14310606060606063,
+              0.45321212121212123
+            ]
+          ],
+          "digits": 4
+        },
+        {
+          "key": "delivery_note",
+          "label": "Lieferscheinnummer",
+          "required": false,
+          "compare": false,
+          "regex": "^\\d{10}\\s*-\\s*\\d{4}$",
+          "sourceRegex": "^\\d{10}\\s*[-–—/|I]\\s*\\d{4}$",
+          "normalizer": "text",
+          "poly": [
+            [
+              0.6333636363636364,
+              0.5521817565301452
+            ],
+            [
+              0.8168636363636363,
+              0.5521817565301452
+            ],
+            [
+              0.8168636363636363,
+              0.5830707070707071
+            ],
+            [
+              0.6333636363636364,
+              0.5830707070707071
+            ]
+          ],
+          "minOverlap": 0.02,
+          "searchRadius": 1.25,
+          "locator": {
+            "aliases": [
+              "Transportauftrag - Position",
+              "Transportauftrag Position"
+            ],
+            "direction": "below_or_right",
+            "maxDistance": 6.5,
+            "minAliasScore": 0.72,
+            "strict": true,
+            "preferRightmost": false,
+            "preferLeftmost": false,
+            "preferUnit": false,
+            "preferBatch": false
+          },
+          "digits": 4
+        }
+      ]
+    },
+    {
+      "id": "TESLA",
+      "name": "Tesla",
+      "role": "vda",
+      "active": true,
+      "source": {
+        "type": "qr",
+        "regions": [
+          {
+            "x": 0,
+            "y": 0.48,
+            "width": 0.42,
+            "height": 0.48
+          },
+          {
+            "x": 0,
+            "y": 0.34,
+            "width": 0.58,
+            "height": 0.6599999999999999
+          }
+        ],
+        "parser": {
+          "requiredFields": [
+            "batch",
+            "delivery_note",
+            "weight"
+          ],
+          "fields": {
+            "batch": {
+              "primaryRegex": "(?:^|:)1T(D\\d{8,10})(?=:|$)",
+              "primaryGroup": 1,
+              "secondaryRegex": "",
+              "secondaryGroup": 1,
+              "secondaryDefault": "",
+              "template": "{primary}",
+              "replacements": []
+            },
+            "weight": {
+              "primaryRegex": "(?:^|:)Q(\\d+(?:[.,]\\d+)?)(?=:|$)",
+              "primaryGroup": 1,
+              "secondaryRegex": "(?:^|:)3Q(KGM?|G|L|LTR)(?=:|$)",
+              "secondaryGroup": 1,
+              "secondaryDefault": "KG",
+              "template": "{primary} {secondary}",
+              "replacements": []
+            },
+            "delivery_note": {
+              "primaryRegex": "(?:^|:)99Z(\\d{7,12})(?=:|$)",
+              "primaryGroup": 1,
+              "secondaryRegex": "",
+              "secondaryGroup": 1,
+              "secondaryDefault": "",
+              "template": "{primary}",
+              "replacements": []
+            }
+          }
+        }
+      },
+      "detection": {
+        "evidenceAliases": [],
+        "minEvidenceMatches": 0,
+        "excludeAliases": [],
+        "minScore": 0.55
+      },
+      "validation": {
+        "minAnchorScore": 0.55,
+        "requiredValidFields": [],
+        "errorMessage": ""
+      },
+      "anchor": {
+        "aliases": [
+          "Tesla"
+        ],
+        "poly": [],
+        "localizeAlias": false,
+        "scaleFrom": "width",
+        "alignFrom": "center",
+        "fallbacks": []
+      },
+      "fields": [
+        {
+          "key": "batch",
+          "label": "Batch",
+          "required": true,
+          "compare": true,
+          "regex": "^D\\d{8,10}$",
+          "sourceRegex": "^D\\d{8,10}$",
+          "normalizer": "batch",
+          "poly": []
+        },
+        {
+          "key": "weight",
+          "label": "Gewicht",
+          "required": true,
+          "compare": true,
+          "regex": "^\\d+(?:[.,]\\d+)?(?:\\s*(?:KG|KGM|G|L|LTR))?$",
+          "sourceRegex": "^\\d+(?:[.,]\\d+)?(?:\\s*(?:KG|KGM|G|L|LTR))?$",
+          "normalizer": "weight",
+          "poly": [],
+          "digits": 4
+        },
+        {
+          "key": "delivery_note",
+          "label": "Lieferscheinnummer",
+          "required": true,
+          "compare": false,
+          "regex": "^\\d{7,12}$",
+          "sourceRegex": "^\\d{7,12}$",
+          "normalizer": "digits",
+          "poly": []
+        }
+      ]
+    },
+    {
+      "id": "SEAT",
+      "name": "Seat",
+      "role": "vda",
+      "active": true,
+      "source": {
+        "type": "ocr"
+      },
+      "detection": {
+        "evidenceAliases": [],
+        "minEvidenceMatches": 0,
+        "excludeAliases": [],
+        "minScore": 0.55
+      },
+      "validation": {
+        "minAnchorScore": 0.55,
+        "requiredValidFields": [],
+        "errorMessage": ""
+      },
+      "anchor": {
+        "aliases": [
+          "SEAT",
+          "SEAT, S.A. - SEAT COMPONENTES",
+          "SEAT COMPONENTES"
+        ],
+        "poly": [
+          [
+            0.2875,
+            0.18333333333333332
+          ],
+          [
+            0.6533333333333333,
+            0.19333333333333333
+          ],
+          [
+            0.6525,
+            0.22666666666666666
+          ],
+          [
+            0.2866666666666667,
+            0.21666666666666667
+          ]
+        ],
+        "localizeAlias": false,
+        "scaleFrom": "width",
+        "alignFrom": "center",
+        "fallbacks": []
+      },
+      "fields": [
+        {
+          "key": "batch",
+          "label": "Batch",
+          "required": true,
+          "compare": true,
+          "regex": "^D\\d{8,10}$",
+          "sourceRegex": "^D\\d{8,10}(?:\\s*[/|I1]\\s*\\d{4})?$",
+          "normalizer": "batch",
+          "poly": [
+            [
+              0.6590303030303031,
+              0.6371111727627842
+            ],
+            [
+              0.7886212121212122,
+              0.6371111727627842
+            ],
+            [
+              0.7886212121212122,
+              0.6925858585858585
+            ],
+            [
+              0.6590303030303031,
+              0.6925858585858585
+            ]
+          ]
+        },
+        {
+          "key": "weight",
+          "label": "Gewicht",
+          "required": true,
+          "compare": true,
+          "regex": "^\\d+(?:[.,]\\d+)?(?:\\s*(?:KG|KGM|G|L|LTR))?$",
+          "sourceRegex": "^\\d+(?:[.,]\\d+)?(?:\\s*(?:KG|KGM|G|L|LTR))?$",
+          "normalizer": "weight",
+          "poly": [
+            [
+              0.738,
+              0.4348686868686869
+            ],
+            [
+              0.7854848484848486,
+              0.4348686868686869
+            ],
+            [
+              0.7854848484848486,
+              0.4793736757220644
+            ],
+            [
+              0.738,
+              0.4793736757220644
+            ]
+          ]
+        },
+        {
+          "key": "delivery_note",
+          "label": "Lieferscheinnummer",
+          "required": false,
+          "compare": false,
+          "regex": "^\\d{7,12}$",
+          "sourceRegex": "^\\d{7,12}$",
+          "normalizer": "digits",
+          "poly": [
+            [
+              0.20643939393939395,
+              0.3707273343789457
+            ],
+            [
+              0.30575757575757573,
+              0.3707273343789457
+            ],
+            [
+              0.30575757575757573,
+              0.41492923127761994
+            ],
+            [
+              0.20643939393939395,
+              0.41492923127761994
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "SEIFERT",
+      "name": "Seifert",
+      "role": "vda",
+      "active": true,
+      "source": {
+        "type": "ocr"
+      },
+      "detection": {
+        "evidenceAliases": [],
+        "minEvidenceMatches": 0,
+        "excludeAliases": [],
+        "minScore": 0.55
+      },
+      "validation": {
+        "minAnchorScore": 0.55,
+        "requiredValidFields": [],
+        "errorMessage": ""
+      },
+      "anchor": {
+        "aliases": [
+          "SEIFERT AUTOMOTIVE LOGISTICS FRANC",
+          "SEIFERT",
+          "Seifert"
+        ],
+        "poly": [
+          [
+            0.35600000000000004,
+            0.17866666666666667
+          ],
+          [
+            0.646,
+            0.17200000000000001
+          ],
+          [
+            0.646,
+            0.19866666666666666
+          ],
+          [
+            0.35600000000000004,
+            0.20400000000000001
+          ]
+        ],
+        "localizeAlias": false,
+        "scaleFrom": "width",
+        "alignFrom": "center",
+        "fallbacks": []
+      },
+      "fields": [
+        {
+          "key": "batch",
+          "label": "Batch",
+          "required": true,
+          "compare": true,
+          "regex": "^D\\d{8,10}$",
+          "sourceRegex": "^D\\d{8,10}(?:\\s*[/|I1]\\s*\\d{4})?$",
+          "normalizer": "batch",
+          "poly": [
+            [
+              0.6825639363893281,
+              0.6124
+            ],
+            [
+              0.8091286918618575,
+              0.6124
+            ],
+            [
+              0.8091286918618575,
+              0.6416437163704874
+            ],
+            [
+              0.6825639363893281,
+              0.6416437163704874
+            ]
+          ]
+        },
+        {
+          "key": "weight",
+          "label": "Gewicht",
+          "required": true,
+          "compare": true,
+          "regex": "^\\d+(?:[.,]\\d+)?(?:\\s*(?:KG|KGM|G|L|LTR))?$",
+          "sourceRegex": "^\\d+(?:[.,]\\d+)?(?:\\s*(?:KG|KGM|G|L|LTR))?$",
+          "normalizer": "weight",
+          "poly": [
+            [
+              0.7024000000000001,
+              0.37466666666666665
+            ],
+            [
+              0.7816000000000001,
+              0.37466666666666665
+            ],
+            [
+              0.7816000000000001,
+              0.4226666666666667
+            ],
+            [
+              0.7024000000000001,
+              0.4226666666666667
+            ]
+          ]
+        },
+        {
+          "key": "delivery_note",
+          "label": "Lieferscheinnummer",
+          "required": false,
+          "compare": false,
+          "regex": "^\\d{7,12}$",
+          "sourceRegex": "^\\d{7,12}$",
+          "normalizer": "digits",
+          "poly": [
+            [
+              0.21456885088853764,
+              0.3394666666666667
+            ],
+            [
+              0.348636063610672,
+              0.3394666666666667
+            ],
+            [
+              0.348636063610672,
+              0.3778666666666667
+            ],
+            [
+              0.21456885088853764,
+              0.3778666666666667
+            ]
+          ]
+        }
+      ]
+    }
+  ]
+}

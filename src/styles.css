@@ -1,0 +1,2163 @@
+:root {
+  color-scheme: dark;
+  --bg: #061423;
+  --panel: #0b2136;
+  --panel-2: #102d49;
+  --line: #294b6c;
+  --text: #f5f8fb;
+  --muted: #a9bbcc;
+  --accent: #ffad33;
+  --ok: #37dc91;
+  --warn: #ffd166;
+  --bad: #ff667a;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); }
+button, select, input { font: inherit; }
+button, .capture {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--panel-2);
+  color: var(--text);
+  min-height: 44px;
+  padding: 10px 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+button:disabled { opacity: .45; cursor: not-allowed; }
+button.primary, .capture.primary { background: var(--accent); color: #17120a; border-color: #ffd08a; }
+button.good { background: #12663f; border-color: #269263; }
+
+header { padding: 18px max(16px, env(safe-area-inset-left)); border-bottom: 1px solid var(--line); }
+header h1 { margin: 0; font-size: clamp(1.35rem, 4vw, 2rem); }
+header h1 small { color: var(--muted); font-size: .55em; }
+header p { margin: 7px 0 0; color: var(--muted); }
+.privacy { margin-top: 10px; padding: 10px 12px; background: rgba(55,220,145,.08); border: 1px solid rgba(55,220,145,.35); border-radius: 10px; }
+
+main { width: min(1450px, 100%); margin: 0 auto; padding: 16px; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; margin-bottom: 16px; }
+.card-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 14px 16px; background: rgba(255,255,255,.025); border-bottom: 1px solid var(--line); }
+.card-head h2 { margin: 0; font-size: 1.15rem; }
+.card-body { padding: 14px; }
+
+.engine-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(260px, .7fr); gap: 14px; }
+.engine-badge { padding: 12px; border-radius: 12px; border: 1px solid var(--line); background: #081a2c; font-weight: 750; }
+.engine-badge.ok, .slot-status.ok { color: var(--ok); border-color: rgba(55,220,145,.45); }
+.engine-badge.warn, .slot-status.warn { color: var(--warn); border-color: rgba(255,209,102,.45); }
+.engine-badge.bad, .slot-status.bad { color: var(--bad); border-color: rgba(255,102,122,.55); }
+.engine-badge.wait, .slot-status.wait { color: #8fd3ff; border-color: rgba(143,211,255,.5); }
+#engineDetails, #deviceInfo { margin-top: 8px; color: var(--muted); overflow-wrap: anywhere; }
+.settings { display: grid; grid-template-columns: repeat(2, minmax(190px, 1fr)); gap: 10px; }
+.settings label { display: grid; gap: 5px; color: var(--muted); }
+.settings select { width: 100%; border-radius: 10px; border: 1px solid var(--line); background: #071a2c; color: var(--text); padding: 10px; }
+.checkbox { display: flex !important; grid-column: 1 / -1; align-items: center; grid-template-columns: auto 1fr !important; }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+
+.scan-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.capture { display: block; text-align: center; position: relative; }
+.capture input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.slot-actions { display: grid; grid-template-columns: 1fr auto; gap: 9px; }
+.preview { margin-top: 12px; min-height: 230px; display: grid; place-items: center; background: #020a12; border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+.preview canvas { display: block; width: 100%; height: auto; max-height: 570px; object-fit: contain; }
+.placeholder { color: var(--muted); }
+.slot-status { margin-top: 10px; padding: 10px; border: 1px solid var(--line); border-radius: 10px; color: var(--muted); }
+.metrics { margin-top: 8px; color: var(--muted); font-size: .92rem; }
+
+.table-wrap { overflow: auto; margin-top: 12px; max-height: 390px; border: 1px solid var(--line); border-radius: 12px; }
+table { width: 100%; border-collapse: collapse; min-width: 620px; }
+th, td { padding: 9px 10px; text-align: left; border-bottom: 1px solid rgba(41,75,108,.65); vertical-align: top; }
+th { position: sticky; top: 0; z-index: 1; background: #102d49; }
+.recognized-text { font-weight: 750; word-break: break-word; }
+.empty-cell { color: var(--muted); text-align: center; }
+details { margin-top: 10px; }
+summary { cursor: pointer; color: #9ed8ff; }
+pre { white-space: pre-wrap; overflow-wrap: anywhere; max-height: 330px; overflow: auto; background: #020a12; padding: 12px; border-radius: 10px; color: #d5e4f2; }
+
+@media (max-width: 900px) {
+  .engine-grid, .scan-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  main { padding: 10px; }
+  header { padding: 14px 12px; }
+  .settings { grid-template-columns: 1fr; }
+  .slot-actions { grid-template-columns: 1fr; }
+  .actions button { flex: 1 1 100%; }
+  .preview { min-height: 180px; }
+}
+.profile-label{display:grid;gap:6px;margin-top:10px;color:var(--muted)}.profile-label select,.field-card input{width:100%;border:1px solid var(--line);background:#071a2c;color:var(--text);border-radius:10px;padding:11px}.field-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:12px}.field-card{display:grid;gap:5px;padding:10px;border:1px solid var(--line);border-radius:12px;background:#081a2c}.field-card.valid{border-color:rgba(55,220,145,.45)}.field-card.invalid{border-color:rgba(255,209,102,.5)}.field-card span{font-weight:800}.field-card small,.muted{color:var(--muted)}.result-banner{padding:18px;border-radius:14px;font-weight:900;text-align:center;margin-bottom:12px}.result-banner.released{background:rgba(55,220,145,.16);border:2px solid var(--ok)}.result-banner.rejected{background:rgba(255,102,122,.15);border:2px solid var(--bad)}.result-banner.review{background:rgba(255,209,102,.15);border:2px solid var(--warn)}.compare-table{min-width:0}.status-match{color:var(--ok);font-weight:800}.status-mismatch,.status-invalid{color:var(--bad);font-weight:800}.status-missing{color:var(--warn);font-weight:800}@media(max-width:560px){.field-grid{grid-template-columns:1fr}.compare-table th,.compare-table td{padding:8px 5px;font-size:.9rem}}
+
+/* Navigation und Profileditor */
+.header-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; }
+.nav-link, .file-button {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 44px; padding: 10px 14px; border: 1px solid var(--line);
+  border-radius: 12px; background: var(--panel-2); color: var(--text);
+  text-decoration: none; font-weight: 800; cursor: pointer;
+}
+.file-button { position: relative; }
+.file-button.primary { background: var(--accent); color: #17120a; border-color: #ffd08a; }
+.file-button input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+button.danger { background: #6d2030; border-color: #a73c50; }
+.hidden { display: none !important; }
+
+.editor-main { width: min(1700px, 100%); }
+.editor-layout { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 16px; align-items: start; }
+.editor-sidebar { position: sticky; top: 10px; }
+.editor-workspace { min-width: 0; }
+.editor-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
+.compact-actions { margin-top: 0; }
+.profile-list { width: 100%; min-height: 290px; padding: 8px; border-radius: 12px; border: 1px solid var(--line); background: #071a2c; color: var(--text); }
+.profile-list option { padding: 8px; border-radius: 7px; }
+.form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.form-grid.one-column { grid-template-columns: 1fr; }
+.form-grid label { display: grid; gap: 6px; color: var(--muted); }
+.form-grid input, .form-grid select, .form-grid textarea {
+  width: 100%; border: 1px solid var(--line); border-radius: 10px;
+  background: #071a2c; color: var(--text); padding: 10px; resize: vertical;
+}
+.editor-meta { margin-top: 14px; }
+.checkbox-row { display: flex !important; flex-direction: row; align-items: center; gap: 9px !important; }
+.checkbox-row input { width: auto; }
+.editor-upload-row, .mode-toolbar, .assignment-toolbar { display: flex; align-items: center; flex-wrap: wrap; gap: 9px; }
+.mode-toolbar { margin-top: 14px; padding: 10px; border: 1px solid var(--line); border-radius: 12px; background: #081a2c; }
+.mode-toolbar label { display: grid; grid-template-columns: auto minmax(120px, 220px) auto; align-items: center; gap: 8px; color: var(--muted); margin-left: auto; }
+.mode-toolbar input[type="range"] { width: 100%; }
+.assignment-toolbar { margin-top: 10px; }
+.assignment-toolbar button { min-height: 40px; padding: 8px 11px; }
+.anchor-button { border-color: rgba(55,220,145,.55); }
+.active-mode { outline: 2px solid var(--accent); background: #52370e; }
+.editor-hint { color: var(--muted); margin: 12px 0 8px; }
+.editor-stage { position: relative; width: 100%; min-height: 360px; overflow: auto; border: 1px solid var(--line); border-radius: 14px; background: #020a12; }
+.editor-stage.empty { display: grid; place-items: center; }
+.editor-stage canvas { display: block; width: 100%; height: auto; }
+#editorImageCanvas { position: relative; z-index: 1; }
+#editorOverlayCanvas { position: absolute; inset: 0; z-index: 2; cursor: crosshair; touch-action: none; }
+.editor-bottom-grid { display: grid; grid-template-columns: minmax(0, .8fr) minmax(360px, 1.2fr); gap: 16px; }
+.selection-info { min-height: 70px; padding: 12px; border: 1px solid var(--line); border-radius: 12px; background: #081a2c; overflow-wrap: anywhere; }
+.assignment-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.assignment-chip { min-height: 38px; padding: 7px 10px; }
+.assignment-chip.selected { outline: 2px solid #ff5dd1; }
+.property-empty { color: var(--muted); }
+.regex-status { padding: 9px; border-radius: 9px; border: 1px solid var(--line); color: var(--muted); }
+.regex-status.ok, #configStatus.ok { color: var(--ok); }
+.regex-status.bad, #configStatus.bad { color: var(--bad); }
+#configStatus.warn { color: var(--warn); }
+#configStatus.wait { color: #8fd3ff; }
+
+@media (max-width: 1000px) {
+  .editor-layout { grid-template-columns: 1fr; }
+  .editor-sidebar { position: static; }
+  .profile-list { min-height: 190px; }
+  .editor-bottom-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 680px) {
+  .header-row { flex-direction: column; }
+  .nav-link { width: 100%; }
+  .editor-toolbar, .editor-upload-row, .mode-toolbar, .assignment-toolbar { align-items: stretch; }
+  .editor-upload-row > *, .assignment-toolbar button { flex: 1 1 100%; }
+  .mode-toolbar label { width: 100%; margin-left: 0; grid-template-columns: 1fr; }
+  .editor-stage { min-height: 220px; }
+}
+
+.compatibility-option{display:flex!important;align-items:center;justify-content:space-between;gap:.75rem;min-width:15rem}.compatibility-option input{width:1.25rem;height:1.25rem;accent-color:currentColor}.compatibility-option span{white-space:nowrap}
+
+/* Henkel Corporate Design – visual overrides only */
+:root {
+  color-scheme: dark;
+  --bg: #E1000F;
+  --panel: #E1000F;
+  --panel-2: #E1000F;
+  --line: rgba(255,255,255,.72);
+  --text: #ffffff;
+  --muted: #ffffff;
+  --accent: #ffffff;
+  --ok: #ffffff;
+  --warn: #ffffff;
+  --bad: #ffffff;
+  font-family: "News Gothic BT", "News Gothic", Arial, sans-serif;
+}
+html, body { background: #E1000F; color: #fff; }
+body, button, select, input, textarea { font-family: "News Gothic BT", "News Gothic", Arial, sans-serif; }
+header, main, .card, .card-head, .card-body, .engine-badge, .field-card,
+.preview, .table-wrap, th, pre, .profile-list, .form-grid input,
+.form-grid select, .form-grid textarea, .mode-toolbar, .editor-stage,
+.selection-info, .settings select, .profile-label select, .field-card input {
+  background: #E1000F;
+  color: #fff;
+}
+header { border-bottom-color: rgba(255,255,255,.72); }
+header p, header h1 small, #engineDetails, #deviceInfo, .settings label,
+.profile-label, .field-card small, .muted, .placeholder, .slot-status,
+.metrics, .form-grid label, .editor-hint, .property-empty, .regex-status {
+  color: #fff;
+}
+button, .capture, .nav-link, .file-button {
+  background: #E1000F;
+  color: #fff;
+  border-color: #fff;
+}
+button.primary, .capture.primary, .file-button.primary,
+button.good, button.danger, .active-mode {
+  background: #fff;
+  color: #E1000F;
+  border-color: #fff;
+}
+button:disabled { opacity: .55; }
+.privacy { background: transparent; border-color: #fff; color: #fff; }
+.engine-badge.ok, .engine-badge.warn, .engine-badge.bad, .engine-badge.wait,
+.slot-status.ok, .slot-status.warn, .slot-status.bad, .slot-status.wait,
+.status-match, .status-mismatch, .status-invalid, .status-missing,
+.regex-status.ok, .regex-status.bad, #configStatus.ok, #configStatus.bad,
+#configStatus.warn, #configStatus.wait, summary {
+  color: #fff;
+  border-color: #fff;
+}
+.result-banner.released, .result-banner.rejected, .result-banner.review {
+  background: transparent;
+  color: #fff;
+  border-color: #fff;
+}
+th, td { border-bottom-color: rgba(255,255,255,.45); }
+input, select, textarea { accent-color: #fff; }
+.henkel-logo-wrap { display:flex; justify-content:center; align-items:center; padding: 18px 16px 4px; }
+.henkel-logo { display:block; width:min(250px, 62vw); height:auto; }
+
+/* Vereinfachte Oberfläche – ausschließlich Darstellung, DOM/Funktionalität bleibt erhalten */
+.header-row .nav-link { display: none !important; }
+header .privacy { display: none !important; }
+
+/* OCR-Bedienelemente bleiben für die bestehende App-Logik im DOM, sind aber nicht sichtbar. */
+main > .card:first-child .card-head,
+main > .card:first-child .settings,
+main > .card:first-child .actions,
+main > .card:first-child #engineDetails { display: none !important; }
+main > .card:first-child { border: 0; box-shadow: none; }
+main > .card:first-child .card-body { padding: .55rem 1rem; }
+main > .card:first-child .engine-grid { display: block; }
+main > .card:first-child .engine-badge {
+  width: 100%;
+  text-align: center;
+  border: 1px solid rgba(255,255,255,.75);
+  border-radius: 10px;
+  padding: .7rem 1rem;
+  font-weight: 700;
+}
+
+/* Arbeitsanweisung unter LabelCheck – reine Darstellung */
+.usage-steps {
+  margin: .85rem 0 0;
+  padding-left: 1.45rem;
+  color: #fff;
+  line-height: 1.55;
+}
+.usage-steps li { margin: .3rem 0; }
+
+/* Henkel Red/White Layout – visual overrides only (2026-08-10) */
+:root {
+  color-scheme: light;
+  --bg: #ffffff;
+  --panel: #ffffff;
+  --panel-2: #ffffff;
+  --line: #E1000F;
+  --text: #E1000F;
+  --muted: #E1000F;
+  --accent: #E1000F;
+  --ok: #E1000F;
+  --warn: #E1000F;
+  --bad: #E1000F;
+}
+html, body { background: #ffffff; color: #E1000F; }
+
+/* Nur der Logo-Bereich bleibt Henkel-Rot. */
+.henkel-logo-wrap {
+  background: #E1000F;
+  padding: 24px 16px;
+  min-height: 150px;
+}
+.henkel-logo {
+  width: min(300px, 68vw);
+  max-height: 120px;
+  object-fit: contain;
+}
+
+/* Der gesamte App-Bereich unterhalb des Logos ist weiß mit roter Typografie. */
+header, main, .card, .card-head, .card-body, .engine-badge, .field-card,
+.preview, .table-wrap, th, pre, .profile-list, .form-grid input,
+.form-grid select, .form-grid textarea, .mode-toolbar, .editor-stage,
+.selection-info, .settings select, .profile-label select, .field-card input {
+  background: #ffffff;
+  color: #E1000F;
+}
+header { border-bottom-color: #E1000F; }
+header h1, header h1 small, header p, #engineDetails, #deviceInfo,
+.settings label, .profile-label, .field-card small, .muted, .placeholder,
+.slot-status, .metrics, .form-grid label, .editor-hint, .property-empty,
+.regex-status, .usage-steps, .usage-steps li {
+  color: #E1000F;
+}
+
+/* Karten, Statusfelder und Bedienelemente erhalten rote Rahmen. */
+.card, .card-head, .engine-badge, .field-card, .preview, .slot-status,
+.table-wrap, .profile-list, .form-grid input, .form-grid select,
+.form-grid textarea, .mode-toolbar, .editor-stage, .selection-info,
+.settings select, .profile-label select, .field-card input,
+button, .capture, .nav-link, .file-button, .privacy {
+  border-color: #E1000F;
+}
+.card { box-shadow: none; }
+.card-head { border-bottom-color: #E1000F; }
+
+button, .capture, .nav-link, .file-button,
+button.primary, .capture.primary, .file-button.primary,
+button.good, button.danger, .active-mode {
+  background: #ffffff;
+  color: #E1000F;
+  border-color: #E1000F;
+}
+button:disabled { opacity: .5; }
+
+.engine-badge.ok, .engine-badge.warn, .engine-badge.bad, .engine-badge.wait,
+.slot-status.ok, .slot-status.warn, .slot-status.bad, .slot-status.wait,
+.status-match, .status-mismatch, .status-invalid, .status-missing,
+.regex-status.ok, .regex-status.bad, #configStatus.ok, #configStatus.bad,
+#configStatus.warn, #configStatus.wait, summary {
+  color: #E1000F;
+  border-color: #E1000F;
+}
+.result-banner.released, .result-banner.rejected, .result-banner.review {
+  background: #ffffff;
+  color: #E1000F;
+  border-color: #E1000F;
+}
+th, td { border-bottom-color: rgba(225,0,15,.35); }
+input, select, textarea { accent-color: #E1000F; }
+
+/* Der reduzierte OCR-Status bleibt sichtbar und ebenfalls rot umrandet. */
+main > .card:first-child .engine-badge {
+  background: #ffffff;
+  color: #E1000F;
+  border-color: #E1000F;
+}
+
+/* Henkel Red / White / Black Layout – visual-only overrides (2026-08-10) */
+:root {
+  --henkel-red: #E1000F;
+  --ui-black: #000000;
+  --line: #E1000F;
+  --text: #000000;
+  --muted: #000000;
+}
+
+/* Typography beneath the logo is black, matching the approved mock-up. */
+html, body { background: #ffffff; color: var(--ui-black); }
+header, main, .card, .card-head, .card-body, .engine-badge, .field-card,
+.preview, .table-wrap, th, td, pre, .profile-list, .form-grid input,
+.form-grid select, .form-grid textarea, .mode-toolbar, .editor-stage,
+.selection-info, .settings select, .profile-label select, .field-card input {
+  color: var(--ui-black);
+}
+header h1, header h1 small, header p, #engineDetails, #deviceInfo,
+.settings label, .profile-label, .field-card small, .muted, .placeholder,
+.slot-status, .metrics, .form-grid label, .editor-hint, .property-empty,
+.regex-status, .usage-steps, .usage-steps li,
+.engine-badge.ok, .engine-badge.warn, .engine-badge.bad, .engine-badge.wait,
+.slot-status.ok, .slot-status.warn, .slot-status.bad, .slot-status.wait,
+.status-match, .status-mismatch, .status-invalid, .status-missing,
+.regex-status.ok, .regex-status.bad, #configStatus.ok, #configStatus.bad,
+#configStatus.warn, #configStatus.wait, summary {
+  color: var(--ui-black);
+}
+
+/* Stronger red outlines, as in the approved sketch. */
+.card,
+.preview,
+.slot-status,
+.table-wrap,
+.profile-list,
+.form-grid input,
+.form-grid select,
+.form-grid textarea,
+.mode-toolbar,
+.editor-stage,
+.selection-info,
+.settings select,
+.profile-label select,
+.field-card input,
+button,
+.capture,
+.nav-link,
+.file-button,
+.privacy,
+.engine-badge,
+.field-card {
+  border-color: var(--henkel-red);
+  border-width: 3px;
+}
+.card { border-width: 4px; border-radius: 18px; }
+.card-head { border-bottom: 3px solid var(--henkel-red); }
+
+button, .capture, .nav-link, .file-button,
+button.primary, .capture.primary, .file-button.primary,
+button.good, button.danger, .active-mode {
+  background: #ffffff;
+  color: var(--ui-black);
+  border-color: var(--henkel-red);
+  border-width: 3px;
+}
+
+.result-banner.released, .result-banner.rejected, .result-banner.review {
+  background: #ffffff;
+  color: var(--ui-black);
+  border-color: var(--henkel-red);
+  border-width: 3px;
+}
+
+/* Make the four instructions look like the four prominent panels in the mock-up. */
+.usage-steps {
+  list-style-position: inside;
+  padding-left: 0;
+  margin-top: 1rem;
+}
+.usage-steps li {
+  margin: .7rem 0;
+  padding: 1rem 1.15rem;
+  border: 4px solid var(--henkel-red);
+  border-radius: 16px;
+  background: #ffffff;
+  color: var(--ui-black);
+  font-weight: 700;
+}
+
+/* The compact OCR readiness status remains visible, with a stronger outline. */
+main > .card:first-child .engine-badge {
+  background: #ffffff;
+  color: var(--ui-black);
+  border: 3px solid var(--henkel-red);
+  border-radius: 12px;
+}
+
+/* Keep table separators red while all readable text stays black. */
+th, td { border-bottom-color: rgba(225,0,15,.45); }
+
+/* Slightly stronger title hierarchy like the mock-up. */
+header h1 { color: var(--ui-black); font-weight: 800; }
+header h1 small { color: var(--ui-black); }
+
+/* Henkel filled inner boxes – visual-only overrides (2026-08-10) */
+/* Large outer cards remain white with their existing thick red outlines. */
+.card {
+  background: #ffffff;
+  color: #000000;
+}
+
+/* Instruction boxes: Henkel red fill with white text. */
+.usage-steps li {
+  background: #E1000F;
+  color: #ffffff;
+  border-color: #E1000F;
+}
+
+/* Inner interactive/status boxes use Henkel red with white text. */
+button,
+.capture,
+.file-button,
+.engine-badge,
+.slot-status,
+.field-card,
+.result-banner.released,
+.result-banner.rejected,
+.result-banner.review {
+  background: #E1000F;
+  color: #ffffff;
+  border-color: #E1000F;
+}
+
+button.primary,
+.capture.primary,
+.file-button.primary,
+button.good,
+button.danger,
+.active-mode,
+.engine-badge.ok,
+.engine-badge.warn,
+.engine-badge.bad,
+.engine-badge.wait,
+.slot-status.ok,
+.slot-status.warn,
+.slot-status.bad,
+.slot-status.wait {
+  background: #E1000F;
+  color: #ffffff;
+  border-color: #E1000F;
+}
+
+/* Keep the compact OCR readiness box filled red while preserving its DOM/function. */
+main > .card:first-child .engine-badge {
+  background: #E1000F;
+  color: #ffffff;
+  border-color: #E1000F;
+}
+
+/* Text nested inside filled boxes stays white. */
+.capture *,
+.file-button *,
+.engine-badge *,
+.slot-status *,
+.field-card small,
+.field-card label,
+.result-banner.released *,
+.result-banner.rejected *,
+.result-banner.review * {
+  color: #ffffff;
+}
+
+/* Disabled controls stay visually recognizable without changing behavior. */
+button:disabled {
+  background: #E1000F;
+  color: #ffffff;
+  opacity: .5;
+}
+
+
+/* Instruction pictograms – visual-only addition (2026-08-10) */
+.usage-steps li {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  list-style: none;
+}
+.usage-steps li::before {
+  content: counter(list-item) ". ";
+  flex: 0 0 auto;
+  font-weight: 800;
+  color: #ffffff;
+}
+.step-icon {
+  flex: 0 0 58px;
+  width: 58px;
+  height: 58px;
+  display: grid;
+  place-items: center;
+  border: 3px solid #ffffff;
+  border-radius: 12px;
+  color: #ffffff;
+}
+.step-icon svg {
+  width: 38px;
+  height: 38px;
+  overflow: visible;
+}
+.step-icon svg path,
+.step-icon svg circle {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.step-text {
+  flex: 1 1 auto;
+  min-width: 0;
+  color: #ffffff;
+}
+@media (max-width: 640px) {
+  .usage-steps li { gap: .7rem; padding: .85rem; }
+  .usage-steps li::before { display: none; }
+  .step-icon { flex-basis: 48px; width: 48px; height: 48px; border-radius: 10px; }
+  .step-icon svg { width: 32px; height: 32px; }
+}
+
+/* Polished Henkel operator UI – presentation only, no functional changes */
+.henkel-logo-wrap {
+  min-height: 108px;
+  padding: 14px 16px;
+}
+.henkel-logo {
+  width: min(230px, 58vw);
+  max-height: 86px;
+}
+header {
+  padding-top: 1.25rem;
+  padding-bottom: 1.15rem;
+}
+header h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  line-height: 1.05;
+  letter-spacing: -.025em;
+}
+header h1 small {
+  display: inline-block;
+  margin-left: .55rem;
+  font-size: .36em;
+  font-weight: 600;
+  color: #6f6f6f;
+  letter-spacing: 0;
+  vertical-align: middle;
+}
+.usage-steps {
+  max-width: 1040px;
+  margin: 1.35rem auto 0;
+  display: grid;
+  gap: .85rem;
+}
+.usage-steps li {
+  margin: 0;
+  min-height: 92px;
+  padding: 1.05rem 1.25rem;
+  gap: 1.15rem;
+  border: 0;
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(0,0,0,.08);
+  line-height: 1.42;
+}
+.usage-steps li::before {
+  font-size: 1.15rem;
+}
+.step-icon {
+  flex-basis: 54px;
+  width: 54px;
+  height: 54px;
+  border-width: 2px;
+  border-radius: 10px;
+}
+.step-icon svg { width: 34px; height: 34px; }
+.step-text {
+  max-width: 820px;
+  font-size: 1.03rem;
+  font-weight: 700;
+}
+main {
+  gap: 1.15rem;
+}
+.card {
+  border-width: 3px;
+  border-radius: 16px;
+  overflow: hidden;
+}
+.card-head {
+  padding: .9rem 1.1rem;
+  border-bottom-width: 2px;
+}
+.card-head h2 { font-size: 1.08rem; }
+.card-body { padding: 1.1rem; }
+button, .capture, .file-button {
+  min-height: 48px;
+  border-width: 0;
+  border-radius: 10px;
+  font-weight: 800;
+  box-shadow: 0 2px 5px rgba(0,0,0,.08);
+}
+main > .card:first-child {
+  margin-top: .15rem;
+}
+main > .card:first-child .card-body {
+  padding: 0;
+}
+main > .card:first-child .engine-badge {
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #E1000F;
+  border-radius: 12px;
+  font-size: .95rem;
+  box-shadow: 0 2px 7px rgba(0,0,0,.06);
+}
+.preview, .slot-status, .field-card, .table-wrap,
+.settings select, .profile-label select, .field-card input {
+  border-width: 2px;
+  border-radius: 10px;
+}
+.scan-grid { gap: 1.15rem; }
+@media (max-width: 640px) {
+  .henkel-logo-wrap { min-height: 92px; padding: 12px 14px; }
+  .henkel-logo { width: min(205px, 62vw); max-height: 72px; }
+  header { padding-top: 1rem; }
+  header h1 small { display: block; margin: .4rem 0 0; font-size: .42em; }
+  .usage-steps { margin-top: 1rem; gap: .7rem; }
+  .usage-steps li { min-height: 78px; padding: .85rem .9rem; }
+  .step-text { font-size: .95rem; }
+  .card { border-width: 2px; border-radius: 14px; }
+}
+
+/* ==============================================================
+   LabelCheck sketch-match presentation layer
+   Visual/markup styling only. No application JavaScript changed.
+   ============================================================== */
+.labelcheck-app {
+  --henkel-red: #E1000F;
+  --ink: #111111;
+  --soft-ink: #5f5f5f;
+  --border: #d7d7d7;
+  --soft-bg: #fafafa;
+  --ready: #2b963f;
+  margin: 0;
+  background: #fff;
+  color: var(--ink);
+  font-family: "News Gothic BT", "News Gothic", Arial, sans-serif;
+}
+.labelcheck-app * { box-sizing: border-box; }
+.labelcheck-app .henkel-logo-wrap {
+  min-height: 122px;
+  padding: 10px 24px;
+  background: var(--henkel-red);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+}
+
+.labelcheck-app .henkel-logo-separator {
+  display: block;
+  width: 2px;
+  height: 72px;
+  background: #fff;
+  flex: 0 0 2px;
+  opacity: 0.95;
+  margin: 0 12px;
+}
+
+.labelcheck-app .henkel-logo,
+.labelcheck-app .henkel-anniversary-logo {
+  display: block;
+  width: auto;
+  max-width: 42vw;
+  object-fit: contain;
+}
+.labelcheck-app .henkel-anniversary-logo {
+  height: 70px;
+}
+.labelcheck-app .henkel-logo {
+  height: 128px;
+}
+.labelcheck-app .app-shell {
+  width: min(1050px, 100%);
+  margin: 0 auto;
+  padding: 0 28px 18px;
+}
+.labelcheck-app .operator-header {
+  padding: 22px 0 12px;
+  border: 0;
+  background: #fff;
+}
+.labelcheck-app .title-block h1 {
+  margin: 0;
+  color: #050505;
+  font-size: clamp(3rem, 6vw, 4.5rem);
+  line-height: .98;
+  letter-spacing: -.045em;
+  font-weight: 800;
+}
+.labelcheck-app .app-version {
+  margin: 6px 0 10px 3px;
+  color: #444;
+  font-size: 1.22rem;
+  font-weight: 600;
+}
+.labelcheck-app .usage-steps {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 13px;
+  list-style: none;
+}
+.labelcheck-app .usage-steps li {
+  min-height: 112px;
+  margin: 0;
+  padding: 13px 17px;
+  display: grid;
+  grid-template-columns: 118px minmax(0, 1fr);
+  align-items: center;
+  gap: 18px;
+  background: #fff;
+  border: 2px solid var(--henkel-red);
+  border-radius: 12px;
+  box-shadow: none;
+  color: #fff;
+}
+.labelcheck-app .usage-steps li::before { content: none; display: none; }
+.labelcheck-app .step-icon {
+  width: 100%;
+  height: 86px;
+  display: grid;
+  place-items: center;
+  background: var(--henkel-red);
+  border: 0;
+  border-radius: 13px;
+  color: #fff;
+}
+.labelcheck-app .step-icon svg { width: 58px; height: 58px; }
+.labelcheck-app .step-icon svg path,
+.labelcheck-app .step-icon svg circle {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.labelcheck-app .step-copy {
+  min-height: 86px;
+  padding: 11px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: var(--henkel-red);
+  border-radius: 13px;
+  color: #fff;
+  line-height: 1.18;
+}
+.labelcheck-app .step-copy strong {
+  display: block;
+  margin-bottom: 4px;
+  color: #fff;
+  font-size: 1.32rem;
+  font-weight: 800;
+}
+.labelcheck-app .step-copy b {
+  color: #fff;
+  font-size: 1.22rem;
+  font-weight: 800;
+}
+.labelcheck-app .step-copy small {
+  margin-top: 5px;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 500;
+}
+.labelcheck-app main {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+.labelcheck-app .readiness-card {
+  min-height: 88px;
+  margin: 0 0 20px;
+  padding: 15px 20px;
+  display: grid;
+  grid-template-columns: 58px 1fr;
+  gap: 16px;
+  align-items: center;
+  background: #fff;
+  border: 1px solid #cfcfcf;
+  border-left: 7px solid var(--ready);
+  border-radius: 11px;
+}
+.labelcheck-app .status-symbol {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--ready);
+  color: #fff;
+  font-size: 1.85rem;
+  font-weight: 900;
+}
+.labelcheck-app .engine-badge,
+.labelcheck-app main > .readiness-card .engine-badge {
+  min-height: auto;
+  padding: 0;
+  justify-content: flex-start;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  color: #111;
+  font-size: 1.13rem;
+  font-weight: 800;
+  text-align: left;
+}
+.labelcheck-app .engine-badge.ok::before { content: "LabelCheck ist bereit"; font-size: 0; }
+.labelcheck-app #engineDetails {
+  margin-top: 5px;
+  color: #555;
+  font-size: .95rem;
+}
+.labelcheck-app .technical-controls,
+.labelcheck-app .technical-field {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  clip-path: inset(50%) !important;
+  white-space: nowrap !important;
+}
+.labelcheck-app .scan-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  margin-bottom: 18px;
+}
+.labelcheck-app .scan-card,
+.labelcheck-app .result-card,
+.labelcheck-app .log-card {
+  margin: 0;
+  background: #fff;
+  border: 1px solid #d2d2d2;
+  border-radius: 11px;
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(0,0,0,.03);
+}
+.labelcheck-app .scan-card-head,
+.labelcheck-app .result-head,
+.labelcheck-app .log-head {
+  padding: 13px 16px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: #fff;
+}
+.labelcheck-app .scan-card-head h2,
+.labelcheck-app .result-head h2,
+.labelcheck-app .log-head h2 {
+  margin: 0;
+  color: #111;
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+.labelcheck-app .scan-card-body { padding: 0 16px 15px; }
+.labelcheck-app .native-file-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+.labelcheck-app .mini-photo-action,
+.labelcheck-app .outline-action,
+.labelcheck-app .solid-action,
+.labelcheck-app button.outline-action,
+.labelcheck-app button.solid-action {
+  min-height: 38px;
+  padding: 8px 13px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 7px;
+  border: 1.5px solid var(--henkel-red);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: none;
+}
+.labelcheck-app .mini-photo-action,
+.labelcheck-app .outline-action,
+.labelcheck-app button.outline-action {
+  background: #fff;
+  color: var(--henkel-red);
+}
+.labelcheck-app .solid-action,
+.labelcheck-app button.solid-action {
+  background: var(--henkel-red);
+  color: #fff;
+}
+.labelcheck-app .preview {
+  position: relative;
+  min-height: 158px;
+  margin: 4px 0 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: #fff;
+  border: 1.5px dashed var(--henkel-red);
+  border-radius: 9px;
+}
+.labelcheck-app .preview:has(.placeholder) .placeholder {
+  padding-top: 68px;
+  color: #222;
+  font-size: 1rem;
+  font-weight: 700;
+  text-align: center;
+}
+.labelcheck-app .preview:has(.placeholder) .placeholder::before {
+  content: "▧";
+  position: absolute;
+  left: 50%;
+  top: 24px;
+  transform: translateX(-50%);
+  color: #999;
+  font-size: 3.3rem;
+  line-height: 1;
+  font-weight: 400;
+}
+.labelcheck-app .preview:has(.placeholder) .placeholder::after {
+  content: "Bitte Foto aufnehmen oder auswählen.";
+  display: block;
+  margin-top: 9px;
+  color: #666;
+  font-size: .84rem;
+  font-weight: 400;
+}
+.labelcheck-app .preview canvas { width: 100%; max-height: 410px; }
+.labelcheck-app .slot-status {
+  min-height: 0;
+  margin: 0;
+  padding: 7px 2px 0;
+  background: transparent;
+  border: 0;
+  color: #666;
+  font-size: .84rem;
+  box-shadow: none;
+}
+.labelcheck-app .slot-status:not(.ok):not(.warn):not(.bad):not(.wait) { display: none; }
+.labelcheck-app .slot-status.ok,
+.labelcheck-app .slot-status.warn,
+.labelcheck-app .slot-status.bad,
+.labelcheck-app .slot-status.wait {
+  background: transparent;
+  color: #555;
+  border: 0;
+}
+.labelcheck-app .scan-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 13px;
+  margin-top: 13px;
+}
+.labelcheck-app .field-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 8px;
+  margin-top: 12px;
+}
+.labelcheck-app .field-card {
+  background: #fff;
+  color: #111;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: none;
+}
+.labelcheck-app .field-card span,
+.labelcheck-app .field-card small,
+.labelcheck-app .field-card label { color: #111; }
+.labelcheck-app .field-card input {
+  background: #fff;
+  color: #111;
+  border: 1px solid #cfcfcf;
+}
+.labelcheck-app .result-card { padding-bottom: 15px; }
+.labelcheck-app .result-head { align-items: flex-start; padding: 15px 18px 8px; }
+.labelcheck-app .result-head p {
+  margin: 8px 0 0;
+  color: #666;
+  font-size: .95rem;
+}
+.labelcheck-app .analyze-action { flex: 0 0 auto; }
+.labelcheck-app .comparison-area {
+  margin: 4px 18px 0;
+  min-height: 72px;
+  padding: 0;
+  display: block;
+  background: #fafafa;
+  border-radius: 7px;
+  color: #666;
+}
+.labelcheck-app .comparison-area > .muted {
+  margin: 0;
+  min-height: 72px;
+  display: grid;
+  place-items: center;
+  color: #777;
+}
+.labelcheck-app .result-banner.released,
+.labelcheck-app .result-banner.rejected,
+.labelcheck-app .result-banner.review {
+  margin: 0 0 10px;
+  background: #fff;
+  color: #111;
+  border: 1px solid var(--henkel-red);
+}
+.labelcheck-app .compare-table {
+  width: 100%;
+  background: #fff;
+  color: #111;
+}
+.labelcheck-app .compare-table th { background: #f5f5f5; color: #111; }
+.labelcheck-app .result-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 12px 18px 0;
+}
+.labelcheck-app #saveButton:disabled { display: none; }
+.labelcheck-app .log-card { margin-top: 18px; padding-bottom: 15px; }
+.labelcheck-app .log-head { padding-bottom: 4px; }
+.labelcheck-app .log-head span { color: #666; font-size: .9rem; }
+.labelcheck-app .log-actions {
+  padding: 8px 16px 0;
+  display: grid;
+  grid-template-columns: minmax(260px, 380px);
+  gap: 8px;
+  justify-content: start;
+}
+.labelcheck-app .log-actions > button {
+  width: 100%;
+  min-height: 42px;
+}
+.labelcheck-app .log-count {
+  width: 100%;
+  padding: 0 2px 2px;
+  color: #666;
+  font-size: .9rem;
+}
+.labelcheck-app .table-wrap {
+  margin: 12px 16px 0;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+.labelcheck-app table { color: #111; }
+.labelcheck-app th { background: #f4f4f4; color: #111; }
+.labelcheck-app td { color: #111; }
+.labelcheck-app footer {
+  padding: 14px 0 4px;
+  color: #666;
+  font-size: .82rem;
+  text-align: center;
+}
+.labelcheck-app button:disabled {
+  background: #ececec;
+  color: #999;
+  border-color: #d3d3d3;
+  opacity: 1;
+}
+@media (max-width: 760px) {
+  .labelcheck-app .app-shell { padding: 0 14px 14px; }
+  .labelcheck-app .operator-header { padding-top: 17px; }
+  .labelcheck-app .title-block h1 { font-size: clamp(2.65rem, 13vw, 4rem); }
+  .labelcheck-app .usage-steps li { grid-template-columns: 82px minmax(0,1fr); min-height: 94px; padding: 10px; gap: 10px; }
+  .labelcheck-app .step-icon { height: 72px; }
+  .labelcheck-app .step-icon svg { width: 46px; height: 46px; }
+  .labelcheck-app .step-copy { min-height: 72px; padding: 9px 12px; }
+  .labelcheck-app .step-copy strong { font-size: 1.08rem; }
+  .labelcheck-app .step-copy b { font-size: .98rem; }
+  .labelcheck-app .step-copy small { font-size: .86rem; }
+  .labelcheck-app .scan-grid { grid-template-columns: 1fr; }
+  .labelcheck-app .desktop-break { display: none; }
+}
+@media (max-width: 480px) {
+  .labelcheck-app .henkel-logo-wrap { min-height: 96px; padding: 10px 16px; }
+  .labelcheck-app .henkel-logo { width: min(185px, 55vw); max-height: 76px; }
+  .labelcheck-app .usage-steps li { grid-template-columns: 66px minmax(0,1fr); }
+  .labelcheck-app .step-icon { height: 62px; border-radius: 10px; }
+  .labelcheck-app .step-icon svg { width: 39px; height: 39px; }
+  .labelcheck-app .step-copy { min-height: 62px; padding: 8px 10px; }
+  .labelcheck-app .step-copy strong { font-size: .98rem; }
+  .labelcheck-app .step-copy b { font-size: .91rem; }
+  .labelcheck-app .step-copy small { font-size: .8rem; }
+  .labelcheck-app .readiness-card { grid-template-columns: 44px 1fr; padding: 12px 13px; gap: 11px; }
+  .labelcheck-app .status-symbol { width: 38px; height: 38px; font-size: 1.4rem; }
+  .labelcheck-app .scan-card-head { align-items: flex-start; }
+  .labelcheck-app .mini-photo-action { min-height: 34px; padding: 6px 8px; font-size: .78rem; }
+  .labelcheck-app .scan-actions { gap: 8px; }
+  .labelcheck-app .outline-action, .labelcheck-app .solid-action { font-size: .88rem; }
+  .labelcheck-app .result-head { flex-direction: column; }
+  .labelcheck-app .analyze-action { align-self: flex-end; }
+  .labelcheck-app .field-grid { grid-template-columns: 1fr; }
+}
+
+/* UI refinement: simplified photo controls + release state pictograms (visual-only) */
+.labelcheck-app .scan-card-head .mini-photo-action {
+  display: none !important;
+}
+
+.labelcheck-app .scan-actions {
+  grid-template-columns: 1fr;
+}
+.labelcheck-app .scan-actions .outline-action {
+  display: none !important;
+}
+.labelcheck-app .scan-actions .solid-action {
+  width: 100%;
+}
+
+/* Keep only the primary PaddleOCR state line. */
+.labelcheck-app #engineDetails {
+  display: none !important;
+}
+
+/* Existing comparison states already carry released/review/rejected classes.
+   Add visual pictograms without changing app logic or JavaScript. */
+.labelcheck-app .result-banner.released,
+.labelcheck-app .result-banner.review,
+.labelcheck-app .result-banner.rejected {
+  min-height: 66px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 13px;
+  padding: 13px 18px;
+  border-color: #d2d2d2;
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+.labelcheck-app .result-banner.released::before,
+.labelcheck-app .result-banner.review::before,
+.labelcheck-app .result-banner.rejected::before {
+  flex: 0 0 42px;
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 1.65rem;
+  line-height: 1;
+  font-weight: 900;
+}
+.labelcheck-app .result-banner.released::before {
+  content: "✓";
+  background: #2f9e44;
+}
+.labelcheck-app .result-banner.review::before {
+  content: "?";
+  background: #e0a800;
+}
+.labelcheck-app .result-banner.rejected::before {
+  content: "×";
+  background: #d71920;
+}
+
+@media (max-width: 480px) {
+  .labelcheck-app .result-banner.released,
+  .labelcheck-app .result-banner.review,
+  .labelcheck-app .result-banner.rejected {
+    justify-content: flex-start;
+    text-align: left;
+  }
+}
+
+
+/* Compact operator guide: presentation only */
+.labelcheck-app .compact-guide {
+  margin-top: 16px;
+  padding: 13px 16px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 10px;
+  background: #fff;
+  border: 1.5px solid #E1000F;
+  border-radius: 12px;
+  color: #111;
+  font-size: .98rem;
+  line-height: 1.35;
+}
+.labelcheck-app .compact-guide > strong { margin-right: 3px; font-weight: 700; }
+.labelcheck-app .compact-guide span { white-space: nowrap; }
+.labelcheck-app .compact-guide span b { color: #E1000F; font-size: 1.12em; margin-right: 2px; }
+.labelcheck-app .compact-guide i { color: #8a8a8a; font-style: normal; }
+@media (max-width: 760px) {
+  .labelcheck-app .compact-guide { display: grid; grid-template-columns: 1fr; gap: 5px; padding: 12px 14px; }
+  .labelcheck-app .compact-guide > strong { margin-bottom: 2px; }
+  .labelcheck-app .compact-guide i { display: none; }
+  .labelcheck-app .compact-guide span { white-space: normal; }
+}
+
+
+/* Profileditor: keep the all-profile JSON export action explicitly visible. */
+.editor-main #exportConfigButton {
+  display: inline-flex !important;
+  visibility: visible !important;
+  opacity: 1;
+}
+
+/* Profileditor: restore the configuration toolbar that is hidden by scanner-only rules. */
+.editor-main > .card:first-child {
+  display: block !important;
+  border: 2px solid #E1000F;
+  box-shadow: none;
+}
+.editor-main > .card:first-child .card-head {
+  display: flex !important;
+}
+.editor-main > .card:first-child .card-body {
+  display: block !important;
+}
+.editor-main > .card:first-child .actions {
+  display: flex !important;
+  visibility: visible !important;
+}
+.editor-main #exportConfigButton {
+  display: inline-flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+
+/* Compact PaddleOCR readiness status beside the app version (LabelCheck only). */
+.labelcheck-app .version-status-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 6px 0 10px 3px;
+}
+.labelcheck-app .version-status-row .app-version {
+  margin: 0;
+}
+.labelcheck-app .version-status-row .readiness-card {
+  min-height: 0;
+  margin: 0;
+  padding: 3px 8px 3px 5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  width: auto;
+  background: transparent;
+  border: 1px solid #d7d7d7;
+  border-left: 1px solid #d7d7d7;
+  border-radius: 999px;
+}
+.labelcheck-app .version-status-row .status-symbol {
+  width: 17px;
+  height: 17px;
+  flex: 0 0 17px;
+  font-size: 11px;
+  background: var(--ready);
+}
+.labelcheck-app .version-status-row .engine-badge,
+.labelcheck-app .version-status-row .readiness-card .engine-badge {
+  min-height: 0;
+  padding: 0;
+  color: #555;
+  font-size: .78rem;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+.labelcheck-app .version-status-row #engineDetails {
+  display: none !important;
+}
+@media (max-width: 560px) {
+  .labelcheck-app .version-status-row { gap: 7px; }
+  .labelcheck-app .version-status-row .engine-badge,
+  .labelcheck-app .version-status-row .readiness-card .engine-badge {
+    white-space: normal;
+  }
+}
+
+/* Title/version refinement: presentation only, LabelCheck only. */
+.labelcheck-app .title-version-row {
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+  flex-wrap: wrap;
+}
+.labelcheck-app .title-version-row h1 {
+  font-size: clamp(2.7rem, 5.4vw, 4.1rem);
+}
+.labelcheck-app .title-version-row .app-version {
+  margin: 0;
+  font-size: .82rem;
+  font-weight: 600;
+  color: #666;
+  white-space: nowrap;
+}
+.labelcheck-app .version-status-row {
+  margin-top: 7px;
+}
+@media (max-width: 560px) {
+  .labelcheck-app .title-version-row h1 { font-size: clamp(2.4rem, 11.5vw, 3.6rem); }
+  .labelcheck-app .title-version-row .app-version { font-size: .76rem; }
+}
+
+/* Main LabelCheck panels: match the red outline of the procedure/instruction boxes. */
+.labelcheck-app .scan-card,
+.labelcheck-app .result-card,
+.labelcheck-app .log-card {
+  border: 2px solid var(--henkel-red);
+  border-radius: 12px;
+}
+
+/* Header brand pairing: 150 Years + Henkel, LabelCheck only. */
+@media (max-width: 720px) {
+  .labelcheck-app .henkel-logo-wrap { gap: 18px; padding: 10px 14px; }
+  .labelcheck-app .henkel-anniversary-logo { height: 56px; width: auto; max-width: 43vw; }
+  .labelcheck-app .henkel-logo { height: 96px; width: auto; max-width: 43vw; }
+}
+
+/* v0.16.7 – reine Darstellungsanpassungen */
+.labelcheck-app .version-status-row .status-symbol.ok {
+  background: var(--ready);
+}
+.labelcheck-app .version-status-row .status-symbol.bad {
+  background: var(--bad);
+}
+.labelcheck-app .version-status-row .status-symbol.wait {
+  background: #d99a00;
+  color: #fff;
+}
+.labelcheck-app .log-card .table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.labelcheck-app .log-card table {
+  min-width: 1560px;
+}
+.labelcheck-app .log-card th,
+.labelcheck-app .log-card td {
+  white-space: nowrap;
+}
+
+.labelcheck-app .export-status {
+  margin-top: 10px;
+  min-height: 1.2em;
+  color: var(--muted, #5f6b75);
+  font-size: .9rem;
+}
+
+/* v0.16.13 – sicherer, bestätigter Protokollexport ohne Microsoft-Anbindung */
+.labelcheck-app .pending-export-panel {
+  margin-top: 10px;
+  padding: 12px 14px;
+  border: 1px solid #d6a200;
+  border-radius: 10px;
+  background: #fff9df;
+  color: #3c3520;
+}
+.labelcheck-app .pending-export-panel p {
+  margin: 5px 0 0;
+  font-size: .9rem;
+  line-height: 1.4;
+}
+.labelcheck-app .pending-export-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+/* v0.16.16 – ruhiger Exportstatus und erkennbare, bereits gesendete Historie */
+.labelcheck-app .log-row-sent {
+  opacity: .62;
+}
+.labelcheck-app .slot-status.warn {
+  border-color: #d6a200;
+}
+
+
+/* v0.17.6 – kompakter Exportblock unter dem Scanprotokoll */
+.labelcheck-app .log-clear-action {
+  width: 100%;
+}
+.labelcheck-app .log-clear-action:disabled {
+  opacity: .45;
+  cursor: default;
+}
+@media (max-width: 640px) {
+  .labelcheck-app .log-actions { grid-template-columns: 1fr; }
+}
+
+/* Erweiterter Profileditor 0.17 */
+.advanced-settings-block{display:grid;gap:.65rem;margin-top:.4rem;padding:.8rem;border:1px solid rgba(255,255,255,.12);border-radius:10px}
+.advanced-settings-block>strong{margin-top:.25rem}
+.compact-fieldset{display:grid;gap:.35rem;border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:.6rem}
+.qr-region-grid,.strategy-number-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.55rem}
+.qr-region-card,.qr-rule-card{display:grid;gap:.45rem;padding:.65rem;border:1px solid rgba(255,255,255,.12);border-radius:8px}
+.qr-region-card .mini-grid,.qr-rule-card .mini-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.45rem}
+.qr-rules{display:grid;gap:.6rem}
+.qr-rule-card h4{margin:.1rem 0}
+@media(max-width:800px){.qr-region-grid,.strategy-number-grid,.qr-region-card .mini-grid,.qr-rule-card .mini-grid{grid-template-columns:1fr}}
+
+/* ==============================================================
+   Profileditor 0.17.2 – übersichtliche, zweisprachige Oberfläche
+   ============================================================== */
+.editor-page {
+  --editor-green: #16854f;
+  --editor-green-dark: #0d6a3d;
+  --editor-soft: #fff7f7;
+  --editor-dash: rgba(225,0,15,.42);
+}
+.editor-page .editor-header-row { align-items: center; }
+.editor-page .editor-header-actions { display:flex; align-items:center; gap:14px; margin-left:auto; }
+.editor-page .language-toggle { display:flex; align-items:center; gap:8px; font-weight:800; color:#000; }
+.editor-page .language-switch { position:relative; width:54px; height:30px; display:inline-block; margin:0; }
+.editor-page .language-switch input { opacity:0; width:0; height:0; position:absolute; }
+.editor-page .language-slider { position:absolute; inset:0; cursor:pointer; border:2px solid #E1000F; border-radius:999px; background:#fff; transition:.18s ease; }
+.editor-page .language-slider::before { content:""; position:absolute; width:20px; height:20px; left:3px; top:3px; border-radius:50%; background:#E1000F; transition:.18s ease; }
+.editor-page .language-switch input:checked + .language-slider::before { transform:translateX(24px); }
+.editor-page .compact-card .card-body { padding:12px 14px; }
+.editor-page .editor-toolbar .actions { gap:8px; }
+.editor-page .settings-section { display:grid; gap:10px; padding-top:16px; margin-top:12px; border-top:2px dashed var(--editor-dash); }
+.editor-page .settings-section.first-section { border-top:0; padding-top:0; margin-top:0; }
+.editor-page .settings-section h3 { margin:0 0 2px; font-size:1rem; color:#000; }
+.editor-page .workspace-section { border-top:2px dashed var(--editor-dash); margin-top:14px; padding-top:12px; }
+.editor-page .sub-settings { display:grid; gap:10px; padding:10px 12px; background:var(--editor-soft); border:1px dashed #E1000F; border-radius:10px; }
+.editor-page .primary-editor-actions { margin-top:0; }
+.editor-page .secondary-editor-actions { margin-top:8px; }
+.editor-page .secondary-editor-actions button { min-height:38px; padding:7px 10px; font-weight:700; }
+.editor-page .mode-toolbar { border-style:dashed; justify-content:flex-start; }
+.editor-page .mode-toolbar button.active-mode,
+.editor-page .assignment-toolbar button.active-assignment,
+.editor-page .assignment-chip.selected {
+  background:var(--editor-green) !important;
+  border-color:var(--editor-green-dark) !important;
+  color:#fff !important;
+  outline:3px solid rgba(22,133,79,.22) !important;
+}
+.editor-page .assignment-toolbar button { min-width:120px; }
+.editor-page .assignment-chip.selected { outline-width:2px !important; }
+.editor-page .field-title { display:flex; align-items:center; justify-content:space-between; gap:8px; width:100%; color:#000; }
+.editor-page .help-icon { position:relative; display:inline-grid; place-items:center; flex:0 0 20px; width:20px; height:20px; border-radius:50%; background:#E1000F; color:#fff; font-size:12px; font-weight:900; cursor:help; user-select:none; }
+.editor-page .help-icon::after { content:attr(data-tooltip); position:absolute; z-index:80; right:0; bottom:calc(100% + 9px); width:min(320px, 72vw); padding:10px 12px; background:#111; color:#fff; border-radius:8px; font-size:13px; line-height:1.35; font-weight:500; box-shadow:0 5px 18px rgba(0,0,0,.24); opacity:0; visibility:hidden; transform:translateY(4px); transition:.12s ease; pointer-events:none; white-space:normal; }
+.editor-page .help-icon::before { content:""; position:absolute; right:6px; bottom:calc(100% + 3px); border:6px solid transparent; border-top-color:#111; opacity:0; visibility:hidden; transition:.12s ease; }
+.editor-page .help-icon:hover::after,
+.editor-page .help-icon:focus::after,
+.editor-page .help-icon:hover::before,
+.editor-page .help-icon:focus::before { opacity:1; visibility:visible; transform:translateY(0); }
+.editor-page .checkbox-row .help-icon { margin-left:auto; }
+.editor-page .compact-fieldset { border:1px dashed #E1000F; border-radius:10px; padding:10px 12px; }
+.editor-page .compact-fieldset legend { padding:0 6px; font-weight:700; }
+.editor-page .direction-fieldset { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:7px 12px; }
+.editor-page .strategy-number-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; padding:10px 12px; border:1px dashed #E1000F; border-radius:10px; background:var(--editor-soft); }
+.editor-page .regex-status.warn { color:#8a5b00; border-color:#d8a000; }
+.editor-page .properties-card .card-body { padding-top:8px; }
+.editor-page .qr-region-card,
+.editor-page .qr-rule-card { border:1px dashed #E1000F; border-radius:10px; padding:10px; margin-bottom:10px; }
+.editor-page .mini-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
+.editor-page .qr-rules { display:grid; gap:10px; }
+.editor-page .qr-rule-card h4 { margin:0 0 8px; }
+.editor-page .form-grid label,
+.editor-page .qr-rule-card label,
+.editor-page .qr-region-card label { color:#000; }
+.editor-page .form-grid input,
+.editor-page .form-grid select,
+.editor-page .form-grid textarea,
+.editor-page .qr-rule-card input,
+.editor-page .qr-rule-card textarea,
+.editor-page .qr-region-card input { border-width:2px; }
+@media (max-width: 760px) {
+  .editor-page .editor-header-row { align-items:stretch; }
+  .editor-page .editor-header-actions { width:100%; justify-content:space-between; margin-left:0; }
+  .editor-page .strategy-number-grid,
+  .editor-page .mini-grid,
+  .editor-page .direction-fieldset { grid-template-columns:1fr; }
+  .editor-page .assignment-toolbar button { min-width:0; }
+}
+
+
+/* ==============================================================
+   Profileditor 0.17.3 – kompaktere Bedienung und sichere Hilfetexte
+   ============================================================== */
+.editor-page .card {
+  overflow: visible;
+}
+.editor-page .editor-main > .card:first-child .card-body.editor-toolbar {
+  display: flex !important;
+  align-items: center;
+  justify-content: flex-start;
+}
+.editor-page .editor-action-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  width: 100%;
+}
+.editor-page .editor-action-line > * {
+  flex: 0 1 auto;
+}
+.editor-page .primary-editor-actions {
+  margin-top: 0;
+}
+.editor-page .secondary-editor-actions {
+  margin-top: 0;
+}
+.editor-page .help-icon::after {
+  top: calc(100% + 9px);
+  bottom: auto;
+  right: 0;
+  width: min(340px, calc(100vw - 32px));
+  max-width: calc(100vw - 32px);
+  transform: translateY(-4px);
+}
+.editor-page .help-icon::before {
+  top: calc(100% + 3px);
+  bottom: auto;
+  right: 6px;
+  border-top-color: transparent;
+  border-bottom-color: #111;
+}
+.editor-page .help-icon:hover::after,
+.editor-page .help-icon:focus::after,
+.editor-page .help-icon:hover::before,
+.editor-page .help-icon:focus::before {
+  transform: translateY(0);
+}
+.editor-page .editor-sidebar .help-icon::after {
+  left: 0;
+  right: auto;
+}
+.editor-page .editor-sidebar .help-icon::before {
+  left: 6px;
+  right: auto;
+}
+@media (max-width: 760px) {
+  .editor-page .editor-action-line > * {
+    flex: 1 1 160px;
+  }
+}
+
+
+/* ==============================================================
+   Profileditor 0.17.4 – klare Ebenen, einzeilige Werkzeugleisten
+   ============================================================== */
+/* Äußere Editor-Karten mit durchgehenden roten Ecken statt Rundungen. */
+.editor-page .card {
+  border-radius: 0 !important;
+  border-color: #E1000F !important;
+}
+
+/* Werkzeugleisten und Zuordnungs-Tabs bleiben in genau einer Zeile.
+   Auf schmalen Ansichten kann horizontal gescrollt werden, statt umzubrechen. */
+.editor-page .editor-action-line,
+.editor-page .mode-toolbar,
+.editor-page .assignment-toolbar,
+.editor-page .assignment-list {
+  flex-wrap: nowrap !important;
+  overflow-x: auto;
+  overflow-y: visible;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+.editor-page .editor-action-line > *,
+.editor-page .mode-toolbar > *,
+.editor-page .assignment-toolbar > *,
+.editor-page .assignment-list > * {
+  flex: 0 0 auto !important;
+}
+.editor-page .primary-editor-actions {
+  white-space: nowrap;
+}
+
+/* Technischer Laufzeitstatus bleibt vollständig unsichtbar. */
+.editor-page #editorEngineBadge,
+.editor-page #editorEngineDetails,
+.editor-page [hidden] {
+  display: none !important;
+}
+
+/* Sidebar liegt über dem Masterbild, damit Hilfetexte niemals dahinter verschwinden. */
+.editor-page .editor-layout {
+  overflow: visible;
+}
+.editor-page .editor-sidebar {
+  z-index: 50;
+  overflow: visible !important;
+}
+.editor-page .editor-workspace {
+  position: relative;
+  z-index: 1;
+}
+.editor-page .help-icon,
+.editor-page .field-title {
+  z-index: 60;
+}
+.editor-page .help-icon::after,
+.editor-page .help-icon::before {
+  z-index: 10000 !important;
+}
+
+@media (max-width: 760px) {
+  .editor-page .editor-action-line > *,
+  .editor-page .mode-toolbar > *,
+  .editor-page .assignment-toolbar > *,
+  .editor-page .assignment-list > * {
+    flex: 0 0 auto !important;
+  }
+}
+
+
+/* ==============================================================
+   Profileditor 0.17.5 – vertikale Auswahl und einheitlich runde Boxen
+   ============================================================== */
+/* Die Karten bleiben für Hilfetexte overflow:visible, erhalten aber wieder
+   einheitlich abgerundete rote Außenkanten. */
+.editor-page .card {
+  border-radius: 16px !important;
+}
+.editor-page .card-head {
+  border-radius: 12px 12px 0 0;
+}
+.editor-page .card-body {
+  border-radius: 0 0 12px 12px;
+}
+
+/* "Aktuelle Auswahl" ist eine vertikale, vollbreite Feldliste statt einer
+   horizontal scrollenden Buttonleiste. */
+.editor-page .assignment-list {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 8px;
+  overflow: visible !important;
+  white-space: normal;
+}
+.editor-page .assignment-list > .assignment-chip {
+  width: 100%;
+  min-width: 0;
+  max-width: none;
+  justify-self: stretch;
+  text-align: left;
+  flex: none !important;
+}
+
+/* Auch die häufigsten inneren Editor-Boxen verwenden denselben runden Stil. */
+.editor-page .editor-stage,
+.editor-page .selection-info,
+.editor-page .profile-list,
+.editor-page .mode-toolbar,
+.editor-page .sub-settings,
+.editor-page .advanced-settings-block,
+.editor-page .compact-fieldset,
+.editor-page .strategy-number-grid,
+.editor-page .qr-region-card,
+.editor-page .qr-rule-card {
+  border-radius: 12px !important;
+}
+
+/* v1.0.0 – finaler Protokollblock: Statuszeile entfernt */
+.labelcheck-app .log-actions { margin-bottom: 0; }
+.labelcheck-app .log-actions + .table-wrap { margin-top: 10px; }
+
+/* v1.0.2 – unsichere / fehlende Felder verlangen eine manuelle Eingabe */
+.labelcheck-app .field-card.manual-required {
+  border: 3px solid #f59e0b !important;
+  background: #fff7e6 !important;
+}
+.labelcheck-app .field-card.manual-required input {
+  border: 2px solid #f59e0b !important;
+  background: #fffdf7 !important;
+}
+.labelcheck-app .field-card.manual-required small {
+  color: #a65300 !important;
+  font-weight: 700;
+}
+
+/* Guided native-camera workflow */
+.labelcheck-app .guided-capture-panel {
+  margin-top: 12px;
+  display: grid;
+  gap: 10px;
+}
+.labelcheck-app .guided-capture-start {
+  width: 100%;
+  min-height: 50px;
+  font-size: 1.02rem;
+}
+.labelcheck-app .guided-capture-notice {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 12px 14px;
+  background: #fff;
+  border: 2px solid var(--henkel-red);
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0,0,0,.08);
+}
+.labelcheck-app .guided-capture-notice[hidden] { display: none !important; }
+.labelcheck-app .guided-capture-copy {
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+  color: #111;
+}
+.labelcheck-app .guided-capture-step {
+  color: var(--henkel-red);
+  font-size: .82rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+.labelcheck-app .guided-capture-copy strong {
+  font-size: 1.08rem;
+  line-height: 1.2;
+}
+.labelcheck-app .guided-capture-hint {
+  color: #555;
+  font-size: .88rem;
+}
+.labelcheck-app .capture-locked {
+  pointer-events: none;
+  background: #ececec !important;
+  color: #999 !important;
+  border-color: #d3d3d3 !important;
+  cursor: not-allowed !important;
+}
+
+/* Release state is deliberately visible around the complete analysis card. */
+.labelcheck-app #resultCard {
+  transition: border-color .15s ease, box-shadow .15s ease, background-color .15s ease;
+}
+.labelcheck-app #resultCard.result-released {
+  border: 5px solid #2f9e44 !important;
+  background: #f4fff6;
+  box-shadow: 0 0 0 2px rgba(47,158,68,.08);
+}
+.labelcheck-app #resultCard.result-rejected {
+  border: 7px solid #d71920 !important;
+  background: #fff2f2;
+  box-shadow: 0 0 0 3px rgba(215,25,32,.10), 0 8px 24px rgba(215,25,32,.12);
+}
+.labelcheck-app #resultCard.result-review {
+  border: 4px solid #e0a800 !important;
+  background: #fffdf2;
+}
+.labelcheck-app #resultCard.result-released .result-banner.released,
+.labelcheck-app #resultCard.result-rejected .result-banner.rejected {
+  min-height: 92px;
+  display: grid;
+  align-content: center;
+  justify-items: start;
+  gap: 4px;
+  padding: 18px 20px;
+  border: 0;
+  border-radius: 8px;
+  color: #fff;
+  text-align: left;
+}
+.labelcheck-app #resultCard.result-released .result-banner.released {
+  background: #2f9e44;
+}
+.labelcheck-app #resultCard.result-rejected .result-banner.rejected {
+  background: #d71920;
+}
+.labelcheck-app #resultCard .result-banner.released::before,
+.labelcheck-app #resultCard .result-banner.rejected::before {
+  display: none !important;
+}
+.labelcheck-app #resultCard .result-banner.released strong,
+.labelcheck-app #resultCard .result-banner.rejected strong {
+  display: block;
+  color: #fff;
+  font-size: clamp(1.55rem, 4.5vw, 2.35rem);
+  line-height: 1;
+  letter-spacing: .025em;
+}
+.labelcheck-app #resultCard .result-banner.released span,
+.labelcheck-app #resultCard .result-banner.rejected span {
+  color: #fff;
+  font-size: clamp(.95rem, 2.6vw, 1.22rem);
+  font-weight: 900;
+}
+.labelcheck-app #resultCard.result-rejected .compare-row-mismatch td {
+  background: #ffe3e3;
+  color: #a50f16;
+  font-weight: 900;
+}
+.labelcheck-app #resultCard.result-released .compare-row-match td {
+  background: #e9f8ed;
+  color: #1f6f31;
+  font-weight: 800;
+}
+.labelcheck-app #saveButton.rejected-save-action {
+  background: #d71920;
+  border-color: #a80f15;
+  box-shadow: 0 0 0 3px rgba(215,25,32,.12);
+}
+
+@media (max-width: 760px) {
+  .labelcheck-app .guided-capture-notice {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}
+
+/* v1.0.2 – compact collapsible operator guide + language switcher */
+.labelcheck-app .header-tools {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 0 0 4px;
+}
+.labelcheck-app .language-switcher {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #333;
+  font-size: .85rem;
+  font-weight: 700;
+}
+.labelcheck-app .language-switcher select {
+  min-height: 36px;
+  padding: 6px 30px 6px 10px;
+  border: 1px solid #cfcfcf;
+  border-radius: 8px;
+  background: #fff;
+  color: #111;
+  font: inherit;
+  font-weight: 700;
+}
+
+.labelcheck-app details.compact-guide {
+  display: block;
+  margin-top: 16px;
+  padding: 0;
+  overflow: hidden;
+  background: #fff;
+  border: 1.5px solid var(--henkel-red);
+  border-radius: 12px;
+  color: #111;
+}
+.labelcheck-app details.compact-guide > summary {
+  min-height: 48px;
+  padding: 11px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+}
+.labelcheck-app details.compact-guide > summary::-webkit-details-marker { display: none; }
+.labelcheck-app details.compact-guide > summary::after {
+  content: "+";
+  flex: 0 0 28px;
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--henkel-red);
+  color: #fff;
+  font-size: 1.25rem;
+  line-height: 1;
+  font-weight: 900;
+}
+.labelcheck-app details.compact-guide[open] > summary::after { content: "−"; }
+.labelcheck-app details.compact-guide > summary strong {
+  font-size: 1rem;
+  font-weight: 800;
+}
+.labelcheck-app .guide-summary-hint {
+  margin-left: auto;
+  color: #666;
+  font-size: .82rem;
+  font-weight: 600;
+  white-space: normal;
+  text-align: right;
+}
+.labelcheck-app .guide-steps {
+  margin: 0;
+  padding: 4px 14px 14px;
+  display: grid;
+  gap: 8px;
+  list-style: none;
+}
+.labelcheck-app .guide-steps li {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+  padding: 10px 11px;
+  background: #f8f8f8;
+  border-radius: 9px;
+}
+.labelcheck-app .guide-steps li > b {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--henkel-red);
+  color: #fff;
+  font-size: .9rem;
+  font-weight: 900;
+}
+.labelcheck-app .guide-steps strong {
+  display: block;
+  margin: 1px 0 3px;
+  color: #111;
+  font-size: .94rem;
+}
+.labelcheck-app .guide-steps p {
+  margin: 0;
+  color: #4b4b4b;
+  font-size: .87rem;
+  line-height: 1.42;
+}
+
+/* Retake controls do not occupy space before the two-photo sequence is complete. */
+.labelcheck-app #productPhotoAction[hidden],
+.labelcheck-app #vdaPhotoAction[hidden] {
+  display: none !important;
+}
+
+@media (max-width: 560px) {
+  .labelcheck-app .language-switcher > span { display: none; }
+  .labelcheck-app .guide-summary-hint { display: none; }
+  .labelcheck-app details.compact-guide > summary { padding: 10px 12px; }
+  .labelcheck-app .guide-steps { padding: 3px 10px 10px; }
+  .labelcheck-app .guide-steps li { padding: 9px; }
+}
+
+/* v1.0.2 – Prüffall muss auch bei fehlenden/unsicheren Feldern klar lesbar bleiben. */
+.labelcheck-app #resultCard.result-review .result-banner.review {
+  min-height: 92px;
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  align-content: center;
+  justify-content: stretch;
+  column-gap: 13px;
+  row-gap: 4px;
+  padding: 18px 20px;
+  background: #fff3bf;
+  border: 2px solid #e0a800;
+  color: #3b2f00;
+  text-align: left;
+}
+.labelcheck-app #resultCard.result-review .result-banner.review::before {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  align-self: center;
+}
+.labelcheck-app #resultCard.result-review .result-banner.review strong {
+  grid-column: 2;
+  grid-row: 1;
+  display: block;
+  color: #3b2f00 !important;
+  font-size: clamp(1.25rem, 3.5vw, 1.8rem);
+  line-height: 1.05;
+  font-weight: 900;
+}
+.labelcheck-app #resultCard.result-review .result-banner.review span {
+  grid-column: 2;
+  grid-row: 2;
+  display: block;
+  color: #3b2f00 !important;
+  font-size: clamp(.92rem, 2.4vw, 1.08rem);
+  line-height: 1.35;
+  font-weight: 800;
+}
+
+/* v1.0.2 – eindeutige Freigabe-Piktogramme im Analyseergebnis */
+.labelcheck-app #resultCard.result-released .result-banner.released,
+.labelcheck-app #resultCard.result-rejected .result-banner.rejected {
+  grid-template-columns: 58px minmax(0, 1fr);
+  grid-template-rows: auto;
+  align-items: center;
+  align-content: center;
+  justify-items: stretch;
+  column-gap: 16px;
+}
+.labelcheck-app #resultCard .result-status-icon {
+  grid-column: 1;
+  width: 54px;
+  height: 54px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #fff;
+  font-size: 2.2rem !important;
+  line-height: 1;
+  font-weight: 1000 !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,.14);
+}
+.labelcheck-app #resultCard .result-status-icon-ok { color: #207a34 !important; }
+.labelcheck-app #resultCard .result-status-icon-bad { color: #b20f15 !important; }
+.labelcheck-app #resultCard .result-banner-copy {
+  grid-column: 2;
+  min-width: 0;
+  display: grid;
+  gap: 5px;
+  text-align: left;
+}
+.labelcheck-app #resultCard .result-banner-copy strong,
+.labelcheck-app #resultCard .result-banner-copy span {
+  grid-column: auto !important;
+  grid-row: auto !important;
+}
+@media (max-width: 480px) {
+  .labelcheck-app #resultCard.result-released .result-banner.released,
+  .labelcheck-app #resultCard.result-rejected .result-banner.rejected {
+    grid-template-columns: 48px minmax(0, 1fr);
+    column-gap: 12px;
+    padding: 15px 14px;
+  }
+  .labelcheck-app #resultCard .result-status-icon {
+    width: 46px;
+    height: 46px;
+    font-size: 1.9rem !important;
+  }
+}
+
+/* Interaction-guided workflow: keep the next required action near the viewport. */
+.labelcheck-app #resultCard {
+  margin-top: 12px;
+}
+.labelcheck-app #resultCard[hidden] {
+  display: none !important;
+}
+.labelcheck-app .analysis-processing {
+  min-height: 78px;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: #fff8e1;
+  border: 2px solid #e0a800;
+  border-radius: 8px;
+  color: #3b2f00;
+  font-weight: 800;
+  text-align: center;
+}
+.labelcheck-app .guided-capture-notice.success {
+  border-color: #2f9e44;
+  background: #f1fff4;
+}
+.labelcheck-app .guided-capture-notice.success .guided-capture-step {
+  color: #237a35;
+}
+.labelcheck-app .guided-capture-notice.success .guided-capture-copy strong {
+  color: #1f6f31;
+}
+
+
+/* v1.0.2 – Statussymbole deutlich sichtbar, auch nach automatischer grüner Übernahme. */
+.labelcheck-app #resultCard .result-status-icon {
+  width: 62px;
+  height: 62px;
+  font-size: 2.65rem !important;
+  border: 3px solid rgba(255,255,255,.95);
+  box-sizing: border-box;
+}
+.labelcheck-app #resultCard .result-status-icon-ok {
+  background: #fff !important;
+  color: #1e7a32 !important;
+}
+.labelcheck-app #resultCard .result-status-icon-bad {
+  background: #fff !important;
+  color: #c20f17 !important;
+}
+.labelcheck-app .guided-capture-success-icon {
+  flex: 0 0 54px;
+  width: 54px;
+  height: 54px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #2f9e44;
+  color: #fff;
+  font-size: 2.2rem;
+  line-height: 1;
+  font-weight: 1000;
+  box-shadow: 0 2px 8px rgba(47,158,68,.22);
+}
+.labelcheck-app .guided-capture-success-icon[hidden] { display: none !important; }
+@media (max-width: 480px) {
+  .labelcheck-app #resultCard .result-status-icon {
+    width: 54px;
+    height: 54px;
+    font-size: 2.25rem !important;
+  }
+  .labelcheck-app .guided-capture-success-icon {
+    flex-basis: 48px;
+    width: 48px;
+    height: 48px;
+    font-size: 1.95rem;
+  }
+}

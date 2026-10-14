@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#E1000F">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <title>LabelCheck</title>
+</head>
+<body class="labelcheck-app">
+  <div class="henkel-logo-wrap">
+    <img class="henkel-anniversary-logo" src="./Henkel_150_Years_White.png" alt="150 Years">
+    <span class="henkel-logo-separator" aria-hidden="true"></span>
+        <img class="henkel-logo" src="./Henkel_Logo_RGB_White.png" alt="Henkel">
+  </div>
+
+  <div class="app-shell">
+    <header class="operator-header">
+      <div class="header-tools">
+        <label class="language-switcher" for="languageSelect">
+          <span data-i18n="language.label">Sprache</span>
+          <select id="languageSelect" aria-label="Sprache">
+            <option value="de">Deutsch</option>
+            <option value="en">English</option>
+            <option value="fr">Français</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="title-block">
+        <div class="title-version-row">
+          <h1>LabelCheck</h1>
+          <div id="version" class="app-version"></div>
+        </div>
+        <div class="version-status-row">
+          <section class="readiness-card" aria-live="polite">
+            <span class="status-symbol wait" aria-hidden="true">…</span>
+            <div>
+              <div id="engineBadge" class="engine-badge wait" data-i18n="engine.loading">Lädt …</div>
+              <div id="engineDetails" data-i18n="engine.preparing">LabelCheck wird vorbereitet.</div>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <details class="compact-guide" id="usageGuide">
+        <summary>
+          <strong data-i18n="guide.title">So funktioniert’s</strong>
+          <span class="guide-summary-hint" data-i18n="guide.expand">Schritt-für-Schritt anzeigen</span>
+        </summary>
+        <ol class="guide-steps">
+          <li><b>1</b><div><strong data-i18n="guide.step1.title">Produktlabel fotografieren</strong><p data-i18n="guide.step1.text">Auf „Fotografiervorgang starten“ tippen. Jetzt das Produktlabel vollständig und im Querformat fotografieren. Anschließend das Foto in der Smartphone-Kamera bestätigen.</p></div></li>
+          <li><b>2</b><div><strong data-i18n="guide.step2.title">VDA-/TA-Label fotografieren</strong><p data-i18n="guide.step2.text">Nach dem Produktfoto springt LabelCheck zu „Jetzt VDA-/TA-Label fotografieren“. Antippen und das VDA-/TA-Label vollständig im Querformat aufnehmen.</p></div></li>
+          <li><b>3</b><div><strong data-i18n="guide.step3.title">Erkannte Werte prüfen</strong><p data-i18n="guide.step3.text">Nach Foto 2 analysiert LabelCheck beide Labels automatisch. Orange Felder prüfen und bei Bedarf ergänzen oder korrigieren.</p></div></li>
+          <li><b>4</b><div><strong data-i18n="guide.step4.title">Freigabestatus prüfen</strong><p data-i18n="guide.step4.text">Grüner Rahmen: Batch stimmt überein und der Datensatz ist freigegeben. Roter Rahmen: Batch stimmt nicht überein – nur bewusst nach zusätzlicher Bestätigung übernehmen.</p></div></li>
+          <li><b>5</b><div><strong data-i18n="guide.step5.title">Bei Bedarf Foto wiederholen</strong><p data-i18n="guide.step5.text">Nach beiden Fotos kann das Produkt- oder VDA-/TA-Foto über „Foto neu aufnehmen“ gezielt ersetzt werden.</p></div></li>
+          <li><b>6</b><div><strong data-i18n="guide.step6.title">Datensatz übernehmen</strong><p data-i18n="guide.step6.text">Bei grün wird der Datensatz automatisch übernommen. Bei Gelb zuerst korrigieren bzw. überprüfen; bei Rot nur bewusst trotz Batch-Abweichung übernehmen.</p></div></li>
+        </ol>
+      </details>
+
+      <section class="guided-capture-panel" aria-label="Geführter Fotografiervorgang">
+        <div id="guidedCaptureNotice" class="guided-capture-notice" hidden>
+          <span id="guidedCaptureSuccessIcon" class="guided-capture-success-icon" aria-hidden="true" hidden>✓</span>
+          <div class="guided-capture-copy">
+            <span id="guidedCaptureStep" class="guided-capture-step"></span>
+            <strong id="guidedCaptureTitle"></strong>
+            <span id="guidedCaptureHint" class="guided-capture-hint"></span>
+          </div>
+        </div>
+        <button id="guidedCaptureButton" class="solid-action guided-capture-start" type="button" data-i18n="capture.start">▣&nbsp; Fotografiervorgang starten</button>
+      </section>
+
+      <section id="resultCard" class="result-card" hidden>
+        <div class="result-head">
+          <div>
+            <h2 data-i18n="analysis.title">Analyseergebnis</h2>
+            <p id="analysisStatusText" data-i18n="analysis.placeholder">Das Ergebnis des Labelchecks ist hier direkt nach beiden Fotos sichtbar.</p>
+          </div>
+        </div>
+        <div id="comparison" class="comparison-area"></div>
+        <div class="result-actions"><button id="reviewButton" class="outline-action" hidden data-i18n="analysis.reviewButton">Überprüft</button><button id="saveButton" class="solid-action" disabled data-i18n="analysis.save">Datensatz übernehmen</button></div>
+      </section>
+    </header>
+
+    <main>
+      <section class="technical-controls" aria-hidden="true">
+        <select id="modelSelect"></select>
+        <select id="qualitySelect"></select>
+        <input id="compatibilityToggle" type="checkbox">
+        <button id="initializeButton">Modell neu laden</button>
+        <button id="debugButton">Debug-JSON</button>
+      </section>
+
+      <section class="scan-grid">
+        <article class="scan-card">
+          <div class="scan-card-head">
+            <h2 data-i18n="scan.productTitle">Produktlabel (quer)</h2>
+          </div>
+          <div class="scan-card-body">
+            <input id="productInput" class="native-file-input" type="file" accept="image/*">
+            <input id="productCameraInput" class="native-file-input" type="file" accept="image/*" capture="environment">
+            <div id="productPreview" class="preview"></div>
+            <div id="productStatus" class="slot-status" data-i18n="scan.none">Noch kein Bild</div>
+            <div class="scan-actions">
+              <label for="productInput" class="outline-action">▧&nbsp; Auswählen</label>
+              <label id="productPhotoAction" for="productCameraInput" class="solid-action" hidden>▣&nbsp; Foto neu aufnehmen</label>
+            </div>
+            <label class="profile-label technical-field"><span data-i18n="scan.profile">Layoutprofil</span><select id="productProfile"></select></label>
+            <div id="productFields" class="field-grid"></div>
+          </div>
+        </article>
+
+        <article class="scan-card">
+          <div class="scan-card-head">
+            <h2 data-i18n="scan.vdaTitle">VDA-Label / TA-Label (quer)</h2>
+          </div>
+          <div class="scan-card-body">
+            <input id="vdaInput" class="native-file-input" type="file" accept="image/*">
+            <input id="vdaCameraInput" class="native-file-input" type="file" accept="image/*" capture="environment">
+            <div id="vdaPreview" class="preview"></div>
+            <div id="vdaStatus" class="slot-status" data-i18n="scan.none">Noch kein Bild</div>
+            <div class="scan-actions">
+              <label for="vdaInput" class="outline-action">▧&nbsp; Auswählen</label>
+              <label id="vdaPhotoAction" for="vdaCameraInput" class="solid-action" hidden>▣&nbsp; Foto neu aufnehmen</label>
+            </div>
+            <label class="profile-label technical-field"><span data-i18n="scan.profile">Layoutprofil</span><select id="vdaProfile"></select></label>
+            <div id="vdaFields" class="field-grid"></div>
+          </div>
+        </article>
+      </section>
+
+
+      <section class="log-card">
+        <div class="log-head"><h2 data-i18n="log.title">Lokales Scanprotokoll</h2></div>
+        <div class="log-actions">
+          <button id="newCsvButton" class="solid-action" disabled data-i18n="log.new">Neue Teile senden</button>
+          <button id="allCsvButton" class="outline-action" disabled data-i18n="log.all">Gesamtes Protokoll senden</button>
+          <div id="logCount" class="log-count">0 Datensätze · 0 neu · 0 gesendet</div>
+          <button id="clearSentButton" class="log-clear-action" disabled data-i18n="log.clear">Gesendete leeren</button>
+        </div>
+        <div class="table-wrap"><table><thead><tr><th data-i18n="log.time">Zeit</th><th data-i18n="log.result">Ergebnis</th><th data-i18n="log.manual">Manuell korrigiert</th><th data-i18n="log.delivery">Lieferscheinnummer / TA-Nummer</th><th data-i18n="log.drum">Fassnummer</th><th data-i18n="log.batchProduct">Batch Produkt</th><th data-i18n="log.batchVda">Batch VDA / TA</th><th data-i18n="log.idhProduct">IDH Produkt</th><th data-i18n="log.idhVda">IDH VDA / TA</th><th data-i18n="log.weightProduct">Gewicht Produkt</th><th data-i18n="log.weightVda">Gewicht VDA / TA</th><th data-i18n="log.profileVda">Labelprofil - VDA / TA</th></tr></thead><tbody id="logBody"></tbody></table></div>
+      </section>
+    </main>
+
+    <footer data-i18n="footer.rights">© Henkel – Alle Rechte vorbehalten.</footer>
+  </div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
